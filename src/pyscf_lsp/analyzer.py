@@ -294,7 +294,87 @@ def _meaningful_lines(content: str) -> list[tuple[int, str]]:
     return result
 
 
-def format_text(content: str) -> str:
+def format_text(content: str, *, is_python: bool | None = None) -> str:
+    """Format text content.
+
+    For Python source (detected or explicitly flagged), the formatter only
+    normalises trailing whitespace and ensures a final newline without
+    reflowing code.  For config-style input it aligns key = value pairs.
+    """
+    if is_python is None:
+        is_python = _looks_like_python(content)
+
+    if is_python:
+        return _format_python(content)
+    return _format_config(content)
+
+
+def _looks_like_python(content: str) -> bool:
+    """Heuristic: if the first non-blank, non-comment line contains a Python
+    keyword or looks like a Python import/statement, treat as Python."""
+    for line in content.splitlines():
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#"):
+            continue
+        if stripped.startswith(("import ", "from ", "def ", "class ", "if ", "for ", "while ")):
+            return True
+        if stripped.startswith(("print(", "with ", "@", "try:", "else:", "elif ")):
+            return True
+        return False
+    return False
+
+
+_PYTHON_KEYWORDS = frozenset(
+    {
+        "False",
+        "None",
+        "True",
+        "and",
+        "as",
+        "assert",
+        "async",
+        "await",
+        "break",
+        "class",
+        "continue",
+        "def",
+        "del",
+        "elif",
+        "else",
+        "except",
+        "finally",
+        "for",
+        "from",
+        "global",
+        "if",
+        "import",
+        "in",
+        "is",
+        "lambda",
+        "nonlocal",
+        "not",
+        "or",
+        "pass",
+        "raise",
+        "return",
+        "try",
+        "while",
+        "with",
+        "yield",
+    }
+)
+
+
+def _format_python(content: str) -> str:
+    """Minimal Python formatter: strip trailing whitespace, ensure newline."""
+    lines = [line.rstrip() for line in content.splitlines()]
+    # Remove trailing blank lines
+    while lines and lines[-1] == "":
+        lines.pop()
+    return "\n".join(lines) + "\n"
+
+
+def _format_config(content: str) -> str:
     lines: list[str] = []
     for raw in content.splitlines():
         stripped = raw.strip()

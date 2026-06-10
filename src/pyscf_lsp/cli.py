@@ -14,9 +14,14 @@ def lsp_main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     if not args.stdio:
         parser.error("only --stdio is currently supported")
-    print(
-        f"{'pyscf-lsp'} scaffold: full JSON-RPC LSP is tracked in roadmap issues", file=sys.stderr
-    )
+    try:
+        from .server import create_server
+
+        server = create_server()
+        server.start_io()
+    except ImportError:
+        print("pyscf-lsp: pygls is required for LSP mode; install with [lsp]", file=sys.stderr)
+        return 1
     return 0
 
 
