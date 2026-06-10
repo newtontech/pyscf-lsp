@@ -11,7 +11,7 @@ import re
 from typing import Any
 
 from lsprotocol import types as lsp
-from pygls.lsp.server import LanguageServer
+from pygls.server import LanguageServer
 
 from .analyzer import analyze_file, format_text
 
@@ -38,7 +38,7 @@ def _publish_file_diagnostics(server: PySCFLanguageServer, uri: str, content: st
         )
         for d in raw_diags
     ]
-    server.text_document_publish_diagnostics(
+    server.text_document_publish_diagnostics(  # type: ignore[attr-defined]
         lsp.PublishDiagnosticsParams(uri=uri, diagnostics=lsp_diags)
     )
 
