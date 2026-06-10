@@ -172,6 +172,9 @@ class TestLspMain:
 
     def test_server_creation_via_lsp_main_import(self) -> None:
         """The lsp_main function should be importable and set up a server."""
+        import pytest
+
+        pytest.importorskip("lsprotocol")
         from pyscf_lsp.server import create_server
 
         server = create_server("pyscf-lsp-test", "0.1.0")
