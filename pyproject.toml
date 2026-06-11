@@ -46,6 +46,7 @@ pyscf-lsp = "pyscf_lsp.cli:lsp_main"
 pyscf-lint = "pyscf_lsp.cli:lint_main"
 pyscf-fmt = "pyscf_lsp.cli:fmt_main"
 pyscf-test = "pyscf_lsp.cli:test_main"
+pyscf-lsp-tool = "pyscf_lsp.tool:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/pyscf_lsp"]
@@ -64,3 +65,4 @@ select = ["E", "F", "I", "B", "UP"]
 [tool.mypy]
 python_version = "3.10"
 strict = true
+
