@@ -1,6 +1,6 @@
 """Valid CASSCF N2 calculation."""
 
-from pyscf import gto, mcscf, scf
+from pyscf import gto, scf, mcscf
 
 mol = gto.M(
     atom="N 0 0 0; N 0 0 1.1",
