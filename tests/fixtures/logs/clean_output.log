@@ -1,0 +1,6 @@
+converged SCF energy = -1.1166298232545
+cycle=1 E= -1.04347349864908  delta_E= 0.073  |g|= 0.204  |ddm|= 0.878
+cycle=2 E= -1.10766347950203  delta_E= 0.064  |g|= 0.127  |ddm|= 0.419
+cycle=3 E= -1.11526922079444  delta_E= 0.0076  |g|= 0.041  |ddm|= 0.14
+SCF converged = True
+E_tot = -1.1166298232545

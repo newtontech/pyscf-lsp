@@ -1,4 +1,7 @@
-"""Small Python API wrapper around the Diagnostic Engine v1 CLI contract."""
+"""Agent-facing API wrapper for Diagnostic Engine v1 CLI contract.
+
+Supports static analysis and runtime log parsing.
+"""
 
 from __future__ import annotations
 
@@ -38,6 +41,35 @@ class AgentLSP:
             payload["uri"] = self.uri
             return payload
 
+    def check_log(self) -> dict[str, Any]:
+        """Parse runtime log output for PySCF diagnostics."""
+        from .log_parser import parse_log_text
+        from .rich_diagnostics import serialize_diagnostics
+
+        diagnostics = parse_log_text(self.text or "", path=self.uri)
+        items = serialize_diagnostics(
+            diagnostics,
+            software=SOFTWARE,
+            path=self.uri,
+            file_type="log",
+        )
+        blocking_count = sum(1 for item in items if item["blocking"])
+        return {
+            "uri": self.uri,
+            "operation": "check_log",
+            "ok": blocking_count == 0,
+            "version": "1.0",
+            "software": SOFTWARE,
+            "diagnostic_engine": "1.0",
+            "diagnostics": items,
+            "summary": {
+                "count": len(items),
+                "blocking": blocking_count,
+                "errors": sum(1 for item in items if item["severity"] == "error"),
+                "warnings": sum(1 for item in items if item["severity"] == "warning"),
+            },
+        }
+
     def context(self, line: int = 0, character: int = 0) -> dict[str, Any]:
         payload = agent_check_payload(software=SOFTWARE, uri=self.uri, operation="context")
         payload["position"] = {"line": line, "character": character}
@@ -58,4 +90,11 @@ class AgentLSP:
     def symbols(self) -> dict[str, Any]:
         payload = agent_check_payload(software=SOFTWARE, uri=self.uri, operation="symbols")
         payload["items"] = []
+        return payload
+
+    def actions(self, line: int = 0, character: int = 0) -> dict[str, Any]:
+        """Return available code actions at position."""
+        payload = agent_check_payload(software=SOFTWARE, uri=self.uri, operation="actions")
+        payload["position"] = {"line": line, "character": character}
+        payload["actions"] = []
         return payload

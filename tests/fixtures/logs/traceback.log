@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "calc.py", line 5, in <module>
+    mf.kernel()
+  File "/opt/pyscf/scf/hf.py", line 1500, in kernel
+    self.build()
+  File "/opt/pyscf/scf/hf.py", line 400, in build
+    mol.build()
+RuntimeError: Basis set error: basis sto-3x not found for atom H
