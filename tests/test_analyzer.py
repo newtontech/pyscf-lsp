@@ -87,7 +87,9 @@ class TestGoldenInvalidFixtures:
 
     @pytest.mark.parametrize(
         "filename",
-        list((FIXTURES_DIR / "invalid").glob("*.py")) if (FIXTURES_DIR / "invalid").exists() else [],
+        list((FIXTURES_DIR / "invalid").glob("*.py"))
+        if (FIXTURES_DIR / "invalid").exists()
+        else [],
         ids=lambda p: p.name,
     )
     def test_invalid_fixture_has_diagnostics(self, filename: Path) -> None:

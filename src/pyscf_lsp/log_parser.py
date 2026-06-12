@@ -18,9 +18,7 @@ def parse_log_file(path: Path) -> list[Diagnostic]:
     try:
         content = path.read_text(encoding="utf-8")
     except UnicodeDecodeError:
-        return [
-            Diagnostic("PYSCF202", "error", "log file is not valid UTF-8 text", str(path), 1)
-        ]
+        return [Diagnostic("PYSCF202", "error", "log file is not valid UTF-8 text", str(path), 1)]
     return parse_log(content, path=str(path))
 
 
