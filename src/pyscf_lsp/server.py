@@ -1,7 +1,7 @@
 """PySCF Language Server built on pygls.
 
-Provides completion, hover, diagnostics, document symbols, and formatting
-for PySCF Python scripts via the Language Server Protocol.
+Provides completion, hover, diagnostics, document symbols, formatting,
+and code actions for PySCF Python scripts via the Language Server Protocol.
 """
 
 from __future__ import annotations
@@ -48,21 +48,21 @@ def _publish_file_diagnostics(server: PySCFLanguageServer, uri: str, content: st
 # ---------------------------------------------------------------------------
 
 PSCF_MODULES: dict[str, str] = {
-    "gto": "Molecular geometry and basis set definitions (gto.M, gto.Mole).",
-    "scf": "Self-consistent field methods (RHF, UHF, ROHF, GHF).",
-    "dft": "Density functional theory (RKS, UKS, ROKS).",
-    "mcscf": "Multi-configuration self-consistent field (CASSCF, CASCI).",
-    "mp": "Moller-Plesset perturbation theory (MP2, MP3).",
-    "cc": "Coupled cluster methods (CCSD, CCSD(T)).",
-    "ci": "Configuration interaction (CISD, CISDT).",
-    "grad": "Analytic nuclear gradients.",
-    "hessian": "Analytic and numerical Hessians.",
-    "tdscf": "Time-dependent SCF / TDDFT.",
-    "solvent": "Implicit solvent models (PCM, ddCOSMO).",
-    "geomopt": "Geometry optimization drivers.",
-    "lo": "Localized orbital methods.",
-    "symm": "Molecular symmetry utilities.",
-    "lib": "Low-level C / BLAS / integral library wrappers.",
+    "gto": "gto.M() – Build a Mole object (atom, basis, charge, spin).",
+    "scf": "scf.RHF(mol) – Restricted Hartree-Fock method.",
+    "dft": "dft.RKS(mol) – Restricted Kohn-Sham DFT.",
+    "mcscf": "mcscf.CASSCF(mf, ncas, nelecas) – CASSCF.",
+    "mp": "mp.MP2(mf) – Second-order Moller-Plesset.",
+    "cc": "cc.CCSD(mf) – Coupled cluster singles and doubles.",
+    "ci": "ci.CISD(mf) – Configuration interaction singles and doubles.",
+    "grad": "grad.RHF(mf) – Analytic nuclear gradients.",
+    "hessian": "hessian.RHF(mf) – Analytic Hessians.",
+    "tdscf": "tdscf.TDA(mf) – Time-dependent SCF / TDDFT.",
+    "solvent": "solvent.PCM(mf) – Implicit solvent models.",
+    "geomopt": "geomopt.optimize(mf) – Geometry optimization.",
+    "lo": "lo.Boys(mol) – Localized orbital methods.",
+    "symm": "symm.detect_symm(mol) – Molecular symmetry.",
+    "lib": "lib.logger – Low-level library utilities.",
 }
 
 PSCF_GTO_MEMBERS: dict[str, str] = {
@@ -125,6 +125,19 @@ PSCF_METHOD_MEMBERS: dict[str, str] = {
     "level_shift": "mf.level_shift – Level shift for SCF.",
 }
 
+PSCF_MOLE_MEMBERS: dict[str, str] = {
+    "atom": "mol.atom – Atomic coordinates string or list.",
+    "basis": "mol.basis – Basis set name.",
+    "charge": "mol.charge – Total molecular charge.",
+    "spin": "mol.spin – Number of unpaired electrons (2S).",
+    "build": "mol.build() – Build the molecular integrals.",
+    "atom_coords": "mol.atom_coords() – Get atomic coordinates as array.",
+    "natm": "mol.natm – Number of atoms.",
+    "nelectron": "mol.nelectron – Total number of electrons.",
+    "nao": "mol.nao – Number of atomic orbitals.",
+    "intor": "mol.intor() – Compute molecular integrals.",
+}
+
 # Namespace look-up table
 _NS: dict[str, dict[str, str]] = {
     "pyscf": PSCF_MODULES,
@@ -138,10 +151,10 @@ _NS: dict[str, dict[str, str]] = {
     "mcscf": PSCF_MCSCF_MEMBERS,
     "mf": PSCF_METHOD_MEMBERS,
     "mc": PSCF_METHOD_MEMBERS,
-    "mol": PSCF_GTO_MEMBERS,
+    "mol": PSCF_MOLE_MEMBERS,
 }
 
-# Flat symbol → hover doc for common PySCF symbols
+# Flat symbol -> hover doc for common PySCF symbols
 _FLAT_HOVER: dict[str, str] = {
     "kernel": "mf.kernel() – Run the main calculation loop (SCF, post-HF, etc.).",
     "converged": "mf.converged – Boolean flag indicating SCF convergence.",
@@ -152,13 +165,37 @@ _FLAT_HOVER: dict[str, str] = {
     "scf": "PySCF scf module – self-consistent field methods.",
     "dft": "PySCF dft module – density functional theory.",
     "mcscf": "PySCF mcscf module – multi-configuration SCF.",
+    "mp": "PySCF mp module – Moller-Plesset perturbation theory.",
+    "cc": "PySCF cc module – coupled cluster methods.",
+    "ci": "PySCF ci module – configuration interaction.",
     "RHF": "scf.RHF(mol) – Restricted Hartree-Fock method.",
     "UHF": "scf.UHF(mol) – Unrestricted Hartree-Fock method.",
+    "ROHF": "scf.ROHF(mol) – Restricted open-shell Hartree-Fock method.",
     "RKS": "dft.RKS(mol) – Restricted Kohn-Sham DFT method.",
     "UKS": "dft.UKS(mol) – Unrestricted Kohn-Sham DFT method.",
     "CASSCF": "mcscf.CASSCF(mf, ncas, nelecas) – CASSCF calculation.",
     "CASCI": "mcscf.CASCI(mf, ncas, nelecas) – CASCI calculation.",
+    "MP2": "mp.MP2(mf) – Second-order Moller-Plesset.",
+    "CCSD": "cc.CCSD(mf) – Coupled cluster singles and doubles.",
+    "M": "gto.M() – Create a Mole object (atom, basis, charge, spin).",
+    "Mole": "gto.Mole – Core class representing a molecular system.",
+    "atom": "mol.atom – Atomic coordinates string or list of [symbol, coords].",
+    "basis": "mol.basis – Basis set name (e.g. 'sto-3g', 'cc-pvdz').",
+    "charge": "mol.charge – Total molecular charge.",
+    "spin": "mol.spin – Number of unpaired electrons (2*S).",
+    "xc": "mf.xc – Exchange-correlation functional label (DFT only).",
+    "conv_tol": "mf.conv_tol – SCF convergence threshold.",
+    "max_cycle": "mf.max_cycle – Maximum number of SCF iterations.",
+    "density_fit": "mf.density_fit() – Enable density fitting approximation.",
+    "build": "mol.build() – Build molecular integrals.",
 }
+
+# Enhanced hover: type-aware lookups based on variable naming conventions
+_TYPE_HOVER_PATTERNS: list[tuple[str, dict[str, str]]] = [
+    (r"\bmf\b", PSCF_METHOD_MEMBERS),
+    (r"\bmc\b", PSCF_METHOD_MEMBERS),
+    (r"\bmol\b", PSCF_MOLE_MEMBERS),
+]
 
 
 # ---------------------------------------------------------------------------
@@ -178,6 +215,130 @@ def _build_completion_items(ns: dict[str, str], prefix: str = "") -> list[dict[s
             }
         )
     return items
+
+
+# ---------------------------------------------------------------------------
+# Code action helpers (Issue #22)
+# ---------------------------------------------------------------------------
+
+
+def _generate_code_actions(
+    uri: str, diagnostics: list[lsp.Diagnostic], content: str
+) -> list[lsp.CodeAction]:
+    """Generate quick-fix code actions from diagnostics."""
+    actions: list[lsp.CodeAction] = []
+    lines = content.splitlines()
+
+    for diag in diagnostics:
+        code = str(diag.code) if diag.code else ""
+
+        if code == "PYSCF-E091" or code == "PYSCF101":
+            # Add import statement
+            actions.append(
+                lsp.CodeAction(
+                    title="Add 'from pyscf import gto, scf'",
+                    kind=lsp.CodeActionKind.QuickFix,
+                    diagnostics=[diag],
+                    edit=lsp.WorkspaceEdit(
+                        changes={
+                            uri: [
+                                lsp.TextEdit(
+                                    range=lsp.Range(
+                                        start=lsp.Position(line=0, character=0),
+                                        end=lsp.Position(line=0, character=0),
+                                    ),
+                                    new_text="from pyscf import gto, scf\n",
+                                )
+                            ]
+                        }
+                    ),
+                )
+            )
+
+        elif code == "PYSCF-W090":
+            # Add basis set
+            line_idx = diag.range.start.line
+            line = lines[line_idx] if line_idx < len(lines) else ""
+            if "gto.M(" in line and "basis" not in line:
+                # Insert basis before closing paren
+                close_paren = line.rfind(")")
+                if close_paren >= 0:
+                    insert_pos = close_paren
+                    prefix = ", " if not line[:insert_pos].rstrip().endswith(",") else ""
+                    actions.append(
+                        lsp.CodeAction(
+                            title="Add basis='sto-3g'",
+                            kind=lsp.CodeActionKind.QuickFix,
+                            diagnostics=[diag],
+                            edit=lsp.WorkspaceEdit(
+                                changes={
+                                    uri: [
+                                        lsp.TextEdit(
+                                            range=lsp.Range(
+                                                start=lsp.Position(
+                                                    line=line_idx, character=insert_pos
+                                                ),
+                                                end=lsp.Position(
+                                                    line=line_idx, character=insert_pos
+                                                ),
+                                            ),
+                                            new_text=f"{prefix}basis='sto-3g'",
+                                        )
+                                    ]
+                                }
+                            ),
+                        )
+                    )
+
+        elif code == "PYSCF-W091" or code == "PYSCF102":
+            # Add mf.kernel() call
+            last_line = len(lines)
+            actions.append(
+                lsp.CodeAction(
+                    title="Add mf.kernel() call",
+                    kind=lsp.CodeActionKind.QuickFix,
+                    diagnostics=[diag],
+                    edit=lsp.WorkspaceEdit(
+                        changes={
+                            uri: [
+                                lsp.TextEdit(
+                                    range=lsp.Range(
+                                        start=lsp.Position(line=last_line, character=0),
+                                        end=lsp.Position(line=last_line, character=0),
+                                    ),
+                                    new_text="mf.kernel()\nassert mf.converged\n",
+                                )
+                            ]
+                        }
+                    ),
+                )
+            )
+
+        elif code == "PYSCF010":
+            # Add convergence check
+            last_line = len(lines)
+            actions.append(
+                lsp.CodeAction(
+                    title="Add convergence check",
+                    kind=lsp.CodeActionKind.QuickFix,
+                    diagnostics=[diag],
+                    edit=lsp.WorkspaceEdit(
+                        changes={
+                            uri: [
+                                lsp.TextEdit(
+                                    range=lsp.Range(
+                                        start=lsp.Position(line=last_line, character=0),
+                                        end=lsp.Position(line=last_line, character=0),
+                                    ),
+                                    new_text="assert mf.converged\n",
+                                )
+                            ]
+                        }
+                    ),
+                )
+            )
+
+    return actions
 
 
 # ---------------------------------------------------------------------------
@@ -298,16 +459,13 @@ class PySCFLanguageServer(LanguageServer):
         def _on_completion(params: lsp.CompletionParams) -> lsp.CompletionList:
             doc = self.workspace.get_text_document(params.text_document.uri)
             line = doc.lines[params.position.line] if params.position.line < len(doc.lines) else ""
-            # Extract prefix before cursor
             col = params.position.character
             prefix = line[:col]
-            # Match word before cursor
             match = re.search(r"([A-Za-z_][\w.]*)\s*\.?\s*$", prefix)
             if match:
                 context = match.group(1)
                 items = self.get_completions(context)
             else:
-                # Default: offer top-level PySCF modules
                 items = _build_completion_items(PSCF_MODULES)
 
             return lsp.CompletionList(
@@ -333,7 +491,17 @@ class PySCFLanguageServer(LanguageServer):
             if not match:
                 return None
             word = match.group(1)
-            hover_text = self.get_hover(word)
+
+            # Try flat hover first
+            hover_text = _FLAT_HOVER.get(word)
+            if hover_text is None:
+                # Try namespace-aware hover based on prefix in line
+                dot_match = re.search(r"(\w+)\." + re.escape(word) + r"\b", line)
+                if dot_match:
+                    prefix = dot_match.group(1)
+                    ns = _NS.get(prefix)
+                    if ns and word in ns:
+                        hover_text = ns[word]
             if hover_text is None:
                 return None
             return lsp.Hover(
@@ -387,6 +555,12 @@ class PySCFLanguageServer(LanguageServer):
                     new_text=formatted,
                 )
             ]
+
+        @self.feature(lsp.TEXT_DOCUMENT_CODE_ACTION)
+        def _on_code_action(params: lsp.CodeActionParams) -> list[lsp.CodeAction]:
+            uri = params.text_document.uri
+            doc = self.workspace.get_text_document(uri)
+            return _generate_code_actions(uri, params.context.diagnostics, doc.source)
 
 
 # ---------------------------------------------------------------------------
