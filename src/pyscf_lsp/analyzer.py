@@ -53,11 +53,26 @@ COMMENT_PREFIXES = ("#", "!", ";")
 # Known PySCF method calls that trigger a computation
 _RUN_CALLS = frozenset({"kernel", "run", "scf", "solve"})
 # Known PySCF module names used in imports
-_PYSCF_MODULES = frozenset({
-    "gto", "scf", "dft", "mcscf", "mp", "cc", "ci",
-    "grad", "hessian", "tdscf", "solvent", "geomopt",
-    "lo", "symm", "lib", "pyscf",
-})
+_PYSCF_MODULES = frozenset(
+    {
+        "gto",
+        "scf",
+        "dft",
+        "mcscf",
+        "mp",
+        "cc",
+        "ci",
+        "grad",
+        "hessian",
+        "tdscf",
+        "solvent",
+        "geomopt",
+        "lo",
+        "symm",
+        "lib",
+        "pyscf",
+    }
+)
 
 
 def analyze_path(path: Path) -> list[Diagnostic]:
@@ -103,9 +118,7 @@ def analyze_file(path: Path) -> list[Diagnostic]:
     try:
         content = path.read_text(encoding="utf-8")
     except UnicodeDecodeError:
-        return [
-            Diagnostic(LEGACY_ENCODING, "error", "file is not valid UTF-8 text", str(path), 1)
-        ]
+        return [Diagnostic(LEGACY_ENCODING, "error", "file is not valid UTF-8 text", str(path), 1)]
     return _analyze_python(path, content)
 
 
@@ -512,11 +525,41 @@ def _looks_like_python(content: str) -> bool:
 
 _PYTHON_KEYWORDS = frozenset(
     {
-        "False", "None", "True", "and", "as", "assert", "async", "await",
-        "break", "class", "continue", "def", "del", "elif", "else", "except",
-        "finally", "for", "from", "global", "if", "import", "in", "is",
-        "lambda", "nonlocal", "not", "or", "pass", "raise", "return", "try",
-        "while", "with", "yield",
+        "False",
+        "None",
+        "True",
+        "and",
+        "as",
+        "assert",
+        "async",
+        "await",
+        "break",
+        "class",
+        "continue",
+        "def",
+        "del",
+        "elif",
+        "else",
+        "except",
+        "finally",
+        "for",
+        "from",
+        "global",
+        "if",
+        "import",
+        "in",
+        "is",
+        "lambda",
+        "nonlocal",
+        "not",
+        "or",
+        "pass",
+        "raise",
+        "return",
+        "try",
+        "while",
+        "with",
+        "yield",
     }
 )
 

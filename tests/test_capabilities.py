@@ -385,9 +385,7 @@ class TestRuntimeLogParser:
     def test_parse_log_file_traceback(self, tmp_path: Path) -> None:
         log_file = tmp_path / "error.log"
         log_file.write_text(
-            "Traceback (most recent call last):\n"
-            '  File "x.py", line 1\n'
-            "ValueError: bad\n",
+            'Traceback (most recent call last):\n  File "x.py", line 1\nValueError: bad\n',
             encoding="utf-8",
         )
 
