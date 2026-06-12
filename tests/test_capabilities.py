@@ -15,7 +15,6 @@ from pyscf_lsp.log_parser import parse_log_file, parse_log_text
 from pyscf_lsp.rich_diagnostics import agent_check_payload, diagnostic_to_dict
 from pyscf_lsp.rules import ALL_CODES
 
-
 # ---------------------------------------------------------------------------
 # Issue #7: Hover capability
 # ---------------------------------------------------------------------------
@@ -247,6 +246,7 @@ class TestDiagnosticsPipeline:
 class TestCodeActions:
     def test_code_action_for_missing_import(self) -> None:
         from lsprotocol import types as lsp
+
         from pyscf_lsp.server import _generate_code_actions
 
         uri = "file:///test.py"
@@ -268,6 +268,7 @@ class TestCodeActions:
 
     def test_code_action_for_missing_basis(self) -> None:
         from lsprotocol import types as lsp
+
         from pyscf_lsp.server import _generate_code_actions
 
         uri = "file:///test.py"
@@ -289,6 +290,7 @@ class TestCodeActions:
 
     def test_code_action_for_convergence_check(self) -> None:
         from lsprotocol import types as lsp
+
         from pyscf_lsp.server import _generate_code_actions
 
         uri = "file:///test.py"
@@ -302,7 +304,12 @@ class TestCodeActions:
                 code="PYSCF010",
             )
         ]
-        content = "from pyscf import gto, scf\nmol = gto.M(atom='H', basis='sto-3g')\nmf = scf.RHF(mol)\nmf.kernel()\n"
+        content = (
+            "from pyscf import gto, scf\n"
+            "mol = gto.M(atom='H', basis='sto-3g')\n"
+            "mf = scf.RHF(mol)\n"
+            "mf.kernel()\n"
+        )
         actions = _generate_code_actions(uri, diags, content)
 
         assert len(actions) >= 1
@@ -310,6 +317,7 @@ class TestCodeActions:
 
     def test_code_action_for_missing_kernel(self) -> None:
         from lsprotocol import types as lsp
+
         from pyscf_lsp.server import _generate_code_actions
 
         uri = "file:///test.py"
