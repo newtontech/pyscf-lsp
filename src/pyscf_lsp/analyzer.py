@@ -14,10 +14,8 @@ Implements all diagnostic rules:
 from __future__ import annotations
 
 import ast
-import json
 import re
 from pathlib import Path
-from typing import Any
 
 from .diagnostics import Diagnostic
 from .rules import (
@@ -142,11 +140,8 @@ def _analyze_python(path: Path, content: str) -> list[Diagnostic]:
         return diagnostics
 
     # Gather AST information
-    names = {node.id for node in ast.walk(tree) if isinstance(node, ast.Name)}
     attrs = {node.attr for node in ast.walk(tree) if isinstance(node, ast.Attribute)}
     imports = _import_names(tree)
-    import_aliases = _import_aliases(tree)
-    calls = _collect_calls(tree)
 
     has_pyscf_import = "pyscf" in imports or bool(imports & _PYSCF_MODULES)
     has_run_call = bool(_RUN_CALLS & attrs)
@@ -188,7 +183,10 @@ def _analyze_python(path: Path, content: str) -> list[Diagnostic]:
                 "PySCF workflow has no molecule construction (gto.M or gto.Mole)",
                 str(path),
                 1,
-                suggested_fix={"kind": "add_molecule", "template": "mol = gto.M(atom='...', basis='...')"},
+                suggested_fix={
+                    "kind": "add_molecule",
+                    "template": "mol = gto.M(atom='...', basis='...')",
+                },
                 confidence=0.85,
             )
         )
@@ -440,10 +438,8 @@ def parse_log(content: str, *, path: str = "<log>") -> list[Diagnostic]:
         if stripped.startswith("Traceback (most recent call last)"):
             # Collect traceback block
             tb_lines = [stripped]
-            end_line = line_no
-            for tb_line_no, tb_line in enumerate(lines[line_no:], start=line_no + 1):
+            for _tb_line_no, tb_line in enumerate(lines[line_no:], start=line_no + 1):
                 tb_lines.append(tb_line.strip())
-                end_line = tb_line_no
                 if not tb_line.startswith(" ") and not tb_line.startswith("\t") and tb_line.strip():
                     if tb_line.strip() != stripped:
                         break
