@@ -1,0 +1,5 @@
+{
+  "software_version": "pyscf >=2.5",
+  "runtime_image": "registry.example.com/pyscf:2.5",
+  "schema_source": "tests/fixtures/preflight/valid_rhf/.pyscf-lsp/intent.json"
+}

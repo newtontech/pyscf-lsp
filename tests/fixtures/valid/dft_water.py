@@ -1,6 +1,6 @@
 """Valid DFT water calculation with geometry optimization check."""
 
-from pyscf import gto, dft
+from pyscf import dft, gto
 
 mol = gto.M(
     atom="O 0 0 0; H 0 0 1; H 0 1 0",
