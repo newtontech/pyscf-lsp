@@ -1,0 +1,32 @@
+[
+  {
+    "name": "valid_rhf",
+    "path": "tests/fixtures/preflight/valid_rhf",
+    "expect_ok": true,
+    "expect_codes": []
+  },
+  {
+    "name": "method_without_molecule",
+    "path": "tests/fixtures/preflight/method_without_molecule",
+    "expect_ok": false,
+    "expect_codes": ["PYSCF602"]
+  },
+  {
+    "name": "missing_geometry_file",
+    "path": "tests/fixtures/preflight/missing_geometry_file",
+    "expect_ok": false,
+    "expect_codes": ["PYSCF601"]
+  },
+  {
+    "name": "low_max_cycle",
+    "path": "tests/fixtures/preflight/low_max_cycle",
+    "expect_ok": true,
+    "expect_codes": ["PYSCF605"]
+  },
+  {
+    "name": "method_never_run",
+    "path": "tests/fixtures/preflight/method_never_run",
+    "expect_ok": true,
+    "expect_codes": ["PYSCF604"]
+  }
+]
