@@ -10,7 +10,7 @@ entrypoints:
   server: pyscf-lsp
   tool: pyscf-lsp-tool
 file_patterns:
-  - *.pyscf.py
+  - "*.pyscf.py"
   - run_pyscf.py
 operations:
   - capabilities
