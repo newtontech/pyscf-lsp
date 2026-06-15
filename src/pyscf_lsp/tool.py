@@ -37,8 +37,9 @@ def _capabilities_payload() -> dict[str, Any]:
         "agentCli": {
             "operations": [
                 "capabilities",
-                "check",
-                "context",
+            "check",
+            "check_log",
+            "context",
                 "complete",
                 "hover",
                 "symbols",
@@ -113,6 +114,23 @@ def _collect_preflight(
     diagnostics, graph = preflight_diagnostics(case_dir, intent=intent)
     version_assumption = resolve_version_assumption(intent)
     return diagnostics, graph.to_json(), version_assumption
+
+
+def check_log_path(path: Path) -> dict[str, Any]:
+    """Return diagnostics parsed from a PySCF runtime log file."""
+    from .log_parser import parse_log_file
+    from .rich_diagnostics import agent_check_payload
+
+    uri = path.resolve().as_uri()
+    diagnostics = parse_log_file(path)
+    return agent_check_payload(
+        software=SOFTWARE,
+        uri=uri,
+        operation="check_log",
+        diagnostics=diagnostics,
+        path=str(path),
+        file_type="log",
+    )
 
 
 def check_path(path: Path) -> dict[str, Any]:
@@ -228,6 +246,7 @@ def main(argv: list[str] | None = None) -> int:
     capabilities.add_argument("--format", choices=["json"], default="json")
     for operation in (
         "check",
+        "check-log",
         "preflight",
         "manifest",
         "context",
@@ -259,7 +278,7 @@ def main(argv: list[str] | None = None) -> int:
             default=0,
             help="0-based character for position-aware operations.",
         )
-        if operation in ("check", "preflight"):
+        if operation in ("check", "preflight", "check-log"):
             sub.add_argument("--fail-on-blocking", action="store_true")
     args = parser.parse_args(argv)
 
@@ -268,6 +287,10 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     if args.operation == "check":
         payload = with_capabilities(check_path(args.path), "check")
+        print(json.dumps(payload, indent=2, sort_keys=True))
+        return 1 if getattr(args, "fail_on_blocking", False) and not payload["ok"] else 0
+    if args.operation == "check-log":
+        payload = with_capabilities(check_log_path(args.path), "check_log")
         print(json.dumps(payload, indent=2, sort_keys=True))
         return 1 if getattr(args, "fail_on_blocking", False) and not payload["ok"] else 0
     if args.operation == "preflight":

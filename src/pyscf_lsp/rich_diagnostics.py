@@ -10,6 +10,8 @@ from collections.abc import Iterable
 from dataclasses import asdict, is_dataclass
 from typing import Any
 
+from .rule_provenance import provenance_for_code
+
 DIAGNOSTIC_ENGINE_VERSION = "1.0"
 # Normalized cross-fleet preflight envelope. Parent routers (bohrium_skills)
 # consume this stable shape; backends stay free to populate whatever subset of
@@ -198,6 +200,8 @@ def diagnostic_to_dict(
     if actions:
         payload["actions"] = list(actions)
     source_provenance = legacy.get("source_provenance")
+    if source_provenance is None:
+        source_provenance = provenance_for_code(str(code or ""))
     if source_provenance:
         payload["source_provenance"] = source_provenance
     domain_tags = legacy.get("domain_tags")

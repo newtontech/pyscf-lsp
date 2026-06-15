@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-06-15T04:19:09Z",
+  "timestamp": "2026-06-15T09:27:13Z",
   "language": "pyscf",
   "cli_available": true,
   "fixture_counts": {
@@ -22,6 +22,7 @@
       "fix-preview",
       "hover",
       "llm-wiki",
+      "log-diagnostics",
       "manifest",
       "openqc-context",
       "rich-diagnostics",
@@ -32,12 +33,25 @@
     "agent_cli_operations": [
       "capabilities",
       "check",
+      "check-log",
       "context",
       "complete",
       "hover",
       "symbols",
       "fix"
     ]
+  },
+  "closed_loop": {
+    "fix_preview": {
+      "operation": "fix",
+      "action_count": 2,
+      "preview_only": true
+    },
+    "check_log": {
+      "operation": "check_log",
+      "diagnostic_count": 1,
+      "has_provenance": true
+    }
   },
   "sample_results": [
     {

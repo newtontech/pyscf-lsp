@@ -7,29 +7,18 @@ compatibility report artifact for the OpenQC capability manifest.
 from __future__ import annotations
 
 import json
-import subprocess
-import sys
 import time
 from pathlib import Path
 
 import pytest
+
+from tests.tool_runner import run_tool
 
 FIXTURES_DIR = Path(__file__).parent / "fixtures"
 EVIDENCE_PATH = Path(__file__).parent / "openqc-smoke-evidence.json"
 VALID_FIXTURES = sorted((FIXTURES_DIR / "valid").glob("*.py"))
 INVALID_FIXTURES = sorted((FIXTURES_DIR / "invalid").glob("*.py"))
 LOG_FIXTURES = sorted((FIXTURES_DIR / "logs").glob("*"))
-
-
-def run_tool(args: list[str]) -> tuple[int, str, str]:
-    """Run pyscf-lsp-tool with args, return (returncode, stdout, stderr)."""
-    result = subprocess.run(
-        [sys.executable, "-m", "pyscf_lsp.tool"] + args,
-        capture_output=True,
-        text=True,
-        timeout=30,
-    )
-    return result.returncode, result.stdout, result.stderr
 
 
 def test_language_detection() -> None:
@@ -104,6 +93,7 @@ def test_generate_smoke_evidence() -> None:
             "log": len(LOG_FIXTURES),
         },
         "capabilities_check": {},
+        "closed_loop": {},
         "sample_results": sample_results,
     }
 
@@ -149,6 +139,32 @@ def test_generate_smoke_evidence() -> None:
                 }
             )
 
+    # Closed-loop evidence: fix preview + log diagnostics
+    closed_loop: dict[str, Any] = {}
+    missing_basis = FIXTURES_DIR / "invalid" / "missing_basis.py"
+    rc, stdout, _ = run_tool(["fix", str(missing_basis)])
+    if rc == 0:
+        fix_payload = json.loads(stdout)
+        closed_loop["fix_preview"] = {
+            "operation": fix_payload.get("operation"),
+            "action_count": len(fix_payload.get("actions", [])),
+            "preview_only": all(
+                action.get("preview_only") for action in fix_payload.get("actions", [])
+            ),
+        }
+    tb_log = FIXTURES_DIR / "logs" / "traceback.log"
+    rc, stdout, _ = run_tool(["check-log", str(tb_log)])
+    if rc == 0:
+        log_payload = json.loads(stdout)
+        closed_loop["check_log"] = {
+            "operation": log_payload.get("operation"),
+            "diagnostic_count": len(log_payload.get("diagnostics", [])),
+            "has_provenance": any(
+                "source_provenance" in item for item in log_payload.get("diagnostics", [])
+            ),
+        }
+    evidence["closed_loop"] = closed_loop
+
     # Write evidence file
     EVIDENCE_PATH.write_text(json.dumps(evidence, indent=2), encoding="utf-8")
     assert EVIDENCE_PATH.exists(), "Evidence file not created"
@@ -157,6 +173,7 @@ def test_generate_smoke_evidence() -> None:
     loaded = json.loads(EVIDENCE_PATH.read_text(encoding="utf-8"))
     assert loaded["language"] == "pyscf"
     assert loaded["cli_available"] is True
+    assert "closed_loop" in loaded
     assert loaded["fixture_counts"]["valid"] == 6
     assert loaded["fixture_counts"]["invalid"] == 8
     assert len(loaded["sample_results"]) > 0

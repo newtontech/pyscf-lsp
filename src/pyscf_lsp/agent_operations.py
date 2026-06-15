@@ -14,9 +14,10 @@ from collections.abc import Iterable
 from pathlib import Path
 from typing import Any, Callable
 
+from .fix_previews import fix_previews_for_diagnostics
 from .rich_diagnostics import agent_check_payload
 
-OPERATIONS = ("check", "context", "complete", "hover", "symbols", "fix")
+OPERATIONS = ("check", "check_log", "context", "complete", "hover", "symbols", "fix")
 _WORD_RE = re.compile(r"[A-Za-z_][A-Za-z0-9_.$%+-]*")
 _SECTION_RE = re.compile(r"^\s*(?:&(?P<section>[A-Za-z][A-Za-z0-9_.$-]*)|\[(?P<bracket>[^\]]+)\])")
 _ASSIGNMENT_RE = re.compile(r"^\s*(?P<key>[A-Za-z_][A-Za-z0-9_.$%-]*)\s*(?:=|:|\s+)")
@@ -113,7 +114,13 @@ def operation_path(
         return with_capabilities(payload, operation, status=status, reason=reason)
 
     if operation == "fix":
-        actions = _fix_actions(payload["diagnostics"], line=line, character=character)
+        actions = fix_previews_for_diagnostics(
+            payload["diagnostics"],
+            uri=path.resolve().as_uri(),
+            content=text,
+        )
+        if not actions:
+            actions = _fix_actions(payload["diagnostics"], line=line, character=character)
         payload["actions"] = actions
         status = "available" if actions else "unavailable"
         reason = (

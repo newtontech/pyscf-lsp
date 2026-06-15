@@ -155,10 +155,14 @@ def _analyze_python(path: Path, content: str) -> list[Diagnostic]:
     # Gather AST information
     attrs = {node.attr for node in ast.walk(tree) if isinstance(node, ast.Attribute)}
     imports = _import_names(tree)
+    aliases = _import_aliases(tree)
+    gto_aliases = _module_aliases(aliases, {"gto", "pyscf.gto"})
 
-    has_pyscf_import = "pyscf" in imports or bool(imports & _PYSCF_MODULES)
+    has_pyscf_import = (
+        "pyscf" in imports or bool(imports & _PYSCF_MODULES) or bool(gto_aliases)
+    )
     has_run_call = bool(_RUN_CALLS & attrs)
-    has_molecule = _has_molecule_creation(tree)
+    has_molecule = _has_molecule_creation(tree, gto_aliases=gto_aliases)
     has_basis = _has_basis_kwarg(tree, content)
 
     # --- PYSCF-E091: missing_import ---
@@ -244,7 +248,7 @@ def _analyze_python(path: Path, content: str) -> list[Diagnostic]:
         )
 
     # --- PYSCF-W092: invalid_charge_spin ---
-    charge_spin_diags = _check_charge_spin(tree, path)
+    charge_spin_diags = _check_charge_spin(tree, path, gto_aliases=gto_aliases)
     diagnostics.extend(charge_spin_diags)
 
     # --- Legacy convergence check (PYSCF010) ---
@@ -264,18 +268,31 @@ def _analyze_python(path: Path, content: str) -> list[Diagnostic]:
     return diagnostics
 
 
-def _has_molecule_creation(tree: ast.AST) -> bool:
+def _module_aliases(aliases: dict[str, str], modules: set[str]) -> set[str]:
+    """Return local names bound to one of the given PySCF modules."""
+    names: set[str] = set()
+    for local, target in aliases.items():
+        root = target.split(".")[0]
+        if target in modules or root in modules:
+            names.add(local)
+    return names
+
+
+def _is_molecule_call(func: ast.expr, gto_aliases: set[str]) -> bool:
+    if isinstance(func, ast.Attribute) and func.attr in ("M", "Mole"):
+        if isinstance(func.value, ast.Name):
+            return func.value.id in gto_aliases or func.value.id == "gto"
+    if isinstance(func, ast.Name) and func.id in ("M", "Mole"):
+        return True
+    return False
+
+
+def _has_molecule_creation(tree: ast.AST, *, gto_aliases: set[str] | None = None) -> bool:
     """Check if the AST contains a gto.M() or Mole() construction."""
+    aliases = gto_aliases or set()
     for node in ast.walk(tree):
-        if isinstance(node, ast.Call):
-            # gto.M(...)  or  M(...)  or  gto.Mole(...)
-            func = node.func
-            if isinstance(func, ast.Attribute):
-                if func.attr in ("M", "Mole") and isinstance(func.value, ast.Name):
-                    return True
-            elif isinstance(func, ast.Name):
-                if func.id in ("M", "Mole"):
-                    return True
+        if isinstance(node, ast.Call) and _is_molecule_call(node.func, aliases):
+            return True
     return False
 
 
@@ -291,19 +308,16 @@ def _has_basis_kwarg(tree: ast.AST, content: str) -> bool:
     return bool(re.search(r"\bbasis\s*=", content))
 
 
-def _check_charge_spin(tree: ast.AST, path: Path) -> list[Diagnostic]:
+def _check_charge_spin(
+    tree: ast.AST, path: Path, *, gto_aliases: set[str] | None = None
+) -> list[Diagnostic]:
     """Check for invalid charge and spin values in gto.M() calls."""
+    aliases = gto_aliases or set()
     diagnostics: list[Diagnostic] = []
     for node in ast.walk(tree):
         if not isinstance(node, ast.Call):
             continue
-        func = node.func
-        is_mol_call = False
-        if isinstance(func, ast.Attribute) and func.attr in ("M", "Mole"):
-            is_mol_call = True
-        elif isinstance(func, ast.Name) and func.id in ("M", "Mole"):
-            is_mol_call = True
-        if not is_mol_call:
+        if not _is_molecule_call(node.func, aliases):
             continue
         for kw in node.keywords:
             if kw.arg == "charge":

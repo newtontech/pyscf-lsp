@@ -7,12 +7,12 @@ the agent CLI produces stable JSON output matching the envelope schema.
 from __future__ import annotations
 
 import json
-import subprocess
-import sys
 from pathlib import Path
 from typing import Any
 
 import pytest
+
+from tests.tool_runner import run_tool
 
 FIXTURES_DIR = Path(__file__).parent / "fixtures"
 VALID_FIXTURES = sorted((FIXTURES_DIR / "valid").glob("*.py"))
@@ -21,14 +21,9 @@ INVALID_FIXTURES = sorted((FIXTURES_DIR / "invalid").glob("*.py"))
 
 def run_tool_check(path: Path) -> dict[str, Any]:
     """Run pyscf-lsp-tool check and return parsed JSON."""
-    result = subprocess.run(
-        [sys.executable, "-m", "pyscf_lsp.tool", "check", str(path)],
-        capture_output=True,
-        text=True,
-        timeout=30,
-    )
-    assert result.returncode == 0, f"CLI exited {result.returncode}: {result.stderr}"
-    payload: dict[str, Any] = json.loads(result.stdout)
+    rc, stdout, stderr = run_tool(["check", str(path)])
+    assert rc == 0, f"CLI exited {rc}: {stderr}"
+    payload: dict[str, Any] = json.loads(stdout)
     return payload
 
 
@@ -143,27 +138,17 @@ class TestCliAvailability:
     """Verify CLI entry points work."""
 
     def test_capabilities_command(self) -> None:
-        result = subprocess.run(
-            [sys.executable, "-m", "pyscf_lsp.tool", "capabilities"],
-            capture_output=True,
-            text=True,
-            timeout=10,
-        )
-        assert result.returncode == 0
-        data = json.loads(result.stdout)
+        rc, stdout, _ = run_tool(["capabilities"])
+        assert rc == 0
+        data = json.loads(stdout)
         assert data.get("software") == "pyscf"
         assert "capabilities" in data
         assert "agentCli" in data
 
     def test_check_nonexistent_path(self) -> None:
-        result = subprocess.run(
-            [sys.executable, "-m", "pyscf_lsp.tool", "check", "/nonexistent/file.py"],
-            capture_output=True,
-            text=True,
-            timeout=10,
-        )
+        rc, _, _ = run_tool(["check", "/nonexistent/file.py"])
         # Should handle gracefully (may return 0 with error diagnostic or non-zero)
-        assert result.returncode in (0, 1, 2)
+        assert rc in (0, 1, 2)
 
 
 class TestEnvelopeFields:
