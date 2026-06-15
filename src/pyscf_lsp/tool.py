@@ -37,9 +37,9 @@ def _capabilities_payload() -> dict[str, Any]:
         "agentCli": {
             "operations": [
                 "capabilities",
-            "check",
-            "check_log",
-            "context",
+                "check",
+                "check_log",
+                "context",
                 "complete",
                 "hover",
                 "symbols",

@@ -158,9 +158,7 @@ def _analyze_python(path: Path, content: str) -> list[Diagnostic]:
     aliases = _import_aliases(tree)
     gto_aliases = _module_aliases(aliases, {"gto", "pyscf.gto"})
 
-    has_pyscf_import = (
-        "pyscf" in imports or bool(imports & _PYSCF_MODULES) or bool(gto_aliases)
-    )
+    has_pyscf_import = "pyscf" in imports or bool(imports & _PYSCF_MODULES) or bool(gto_aliases)
     has_run_call = bool(_RUN_CALLS & attrs)
     has_molecule = _has_molecule_creation(tree, gto_aliases=gto_aliases)
     has_basis = _has_basis_kwarg(tree, content)
