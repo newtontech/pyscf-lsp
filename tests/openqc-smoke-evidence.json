@@ -1,0 +1,72 @@
+{
+  "timestamp": "2026-06-15T04:19:09Z",
+  "language": "pyscf",
+  "cli_available": true,
+  "fixture_counts": {
+    "valid": 6,
+    "invalid": 8,
+    "log": 3
+  },
+  "capabilities_check": {
+    "software": "pyscf",
+    "version": 1,
+    "capabilities": [
+      "agent-envelope",
+      "agent-json-cli",
+      "blocking-gate",
+      "completion",
+      "context",
+      "diagnostic-engine-v1",
+      "diagnostics",
+      "fix-placeholder",
+      "fix-preview",
+      "hover",
+      "llm-wiki",
+      "manifest",
+      "openqc-context",
+      "rich-diagnostics",
+      "routing",
+      "source-provenance",
+      "symbols"
+    ],
+    "agent_cli_operations": [
+      "capabilities",
+      "check",
+      "context",
+      "complete",
+      "hover",
+      "symbols",
+      "fix"
+    ]
+  },
+  "sample_results": [
+    {
+      "fixture": "casscf_n2.py",
+      "category": "valid",
+      "ok": true,
+      "diagnostic_count": 0,
+      "software": "pyscf"
+    },
+    {
+      "fixture": "df_rhf.py",
+      "category": "valid",
+      "ok": true,
+      "diagnostic_count": 0,
+      "software": "pyscf"
+    },
+    {
+      "fixture": "invalid_charge_spin.py",
+      "category": "invalid",
+      "ok": true,
+      "diagnostic_count": 3,
+      "software": "pyscf"
+    },
+    {
+      "fixture": "missing_basis.py",
+      "category": "invalid",
+      "ok": true,
+      "diagnostic_count": 2,
+      "software": "pyscf"
+    }
+  ]
+}
