@@ -1,4 +1,7 @@
-"""PySCF LSP and CLI tools."""
+"""PySCF LSP and CLI tools.
+
+LLM Wiki: wiki/synthesis/openqc-agent-context.md
+"""
 
 __all__ = ["__version__"]
 

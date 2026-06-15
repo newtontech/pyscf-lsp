@@ -1,6 +1,8 @@
 """Agent-facing API wrapper for Diagnostic Engine v1 CLI contract.
 
 Supports static analysis and runtime log parsing.
+
+LLM Wiki: wiki/synthesis/openqc-agent-context.md
 """
 
 from __future__ import annotations
@@ -15,7 +17,10 @@ from .tool import SOFTWARE, _collect_diagnostics, _file_type, check_path
 
 
 class AgentLSP:
-    """Agent-facing wrapper for non-editor LSP diagnostics."""
+    """Agent-facing wrapper for non-editor LSP diagnostics.
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
+    """
 
     def __init__(self, text: str | None = None, uri: str = "file:///input") -> None:
         self.text = text
@@ -42,7 +47,10 @@ class AgentLSP:
             return with_capabilities(payload, "check")
 
     def check_log(self) -> dict[str, Any]:
-        """Parse runtime log output for PySCF diagnostics."""
+        """Parse runtime log output for PySCF diagnostics.
+
+        LLM Wiki: wiki/synthesis/openqc-agent-context.md
+        """
         from .log_parser import parse_log_text
         from .rich_diagnostics import serialize_diagnostics
 
@@ -111,7 +119,10 @@ class AgentLSP:
         return self._operation("symbols")
 
     def actions(self, line: int = 0, character: int = 0) -> dict[str, Any]:
-        """Return available code actions at position."""
+        """Return available code actions at position.
+
+        LLM Wiki: wiki/synthesis/openqc-agent-context.md
+        """
         payload = self._operation("fix", line, character)
         payload["operation"] = "actions"
         return payload

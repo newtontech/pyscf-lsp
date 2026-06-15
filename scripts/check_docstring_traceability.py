@@ -39,9 +39,7 @@ EXCLUDED_DIRS = {
 }
 
 WIKI_RE = re.compile(r"(?<![A-Za-z0-9_./-])(wiki/[A-Za-z0-9_./%+@:#=-]+?\.md)(?:#[A-Za-z0-9_.-]+)?")
-RAW_RE = re.compile(
-    r"(?<![A-Za-z0-9_./-])(raw/[A-Za-z0-9_./%+@:#=-]+\.[A-Za-z0-9][A-Za-z0-9_-]*)"
-)
+RAW_RE = re.compile(r"(?<![A-Za-z0-9_./-])(raw/[A-Za-z0-9_./%+@:#=-]+\.[A-Za-z0-9][A-Za-z0-9_-]*)")
 
 
 @dataclass
@@ -67,16 +65,43 @@ def relpath(path: Path, root: Path) -> str:
 
 
 def repository_id(root: Path) -> str:
+    capabilities = load_capabilities(root)
+    value = capabilities.get("repository")
+    if isinstance(value, str) and "/" in value:
+        return value
+    openqc = capabilities.get("openqc")
+    if isinstance(openqc, dict):
+        registry = openqc.get("registryId")
+        if isinstance(registry, str) and "/" in registry:
+            return registry
+    server = server_id(root)
+    return f"newtontech/{server}" if server else root.name
+
+
+def load_capabilities(root: Path) -> dict[str, Any]:
     capabilities = root / "lsp-capabilities.json"
     if capabilities.is_file():
         try:
             data = json.loads(capabilities.read_text(encoding="utf-8"))
         except json.JSONDecodeError:
-            return root.name
-        repo_id = data.get("id")
-        if isinstance(repo_id, str) and repo_id:
-            return repo_id
-    return root.name
+            return {}
+        if isinstance(data, dict):
+            return data
+    return {}
+
+
+def server_id(root: Path) -> str:
+    capabilities = load_capabilities(root)
+    value = capabilities.get("id") or capabilities.get("serverId")
+    return value if isinstance(value, str) and value else root.name
+
+
+def language_id(root: Path) -> str:
+    capabilities = load_capabilities(root)
+    value = capabilities.get("languageId") or capabilities.get("software")
+    if isinstance(value, str) and value:
+        return value
+    return server_id(root).removesuffix("-lsp")
 
 
 def should_skip(path: Path) -> bool:
@@ -155,7 +180,12 @@ def scan_docstrings(root: Path) -> list[DocstringRecord]:
             )
 
     for path in sorted(
-        [*root.rglob("*.js"), *root.rglob("*.jsx"), *root.rglob("*.ts"), *root.rglob("*.tsx")]
+        [
+            *root.rglob("*.js"),
+            *root.rglob("*.jsx"),
+            *root.rglob("*.ts"),
+            *root.rglob("*.tsx"),
+        ]
     ):
         relative = path.relative_to(root)
         if should_skip(relative):
@@ -241,6 +271,20 @@ def load_manifest(root: Path) -> tuple[set[str], list[str]]:
     if not paths:
         return set(), ["raw/assets/manifest.json contains no raw asset paths"]
     return paths, []
+
+
+def load_manifest_data(root: Path) -> tuple[dict[str, Any], set[str], list[str]]:
+    manifest = root / "raw" / "assets" / "manifest.json"
+    if not manifest.is_file():
+        return {}, set(), ["raw/assets/manifest.json is missing"]
+    try:
+        data = json.loads(manifest.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        return {}, set(), [f"raw/assets/manifest.json is invalid JSON: {exc}"]
+    paths = collect_manifest_paths(data)
+    if not paths:
+        return data, set(), ["raw/assets/manifest.json contains no raw asset paths"]
+    return data, paths, []
 
 
 def scan_wiki(root: Path, manifest_paths: set[str]) -> list[WikiRecord]:
@@ -356,7 +400,12 @@ def fix_python_docstrings(root: Path, wiki_ref: str) -> int:
 def fix_jsdoc_blocks(root: Path, wiki_ref: str) -> int:
     changed = 0
     for path in sorted(
-        [*root.rglob("*.js"), *root.rglob("*.jsx"), *root.rglob("*.ts"), *root.rglob("*.tsx")]
+        [
+            *root.rglob("*.js"),
+            *root.rglob("*.jsx"),
+            *root.rglob("*.ts"),
+            *root.rglob("*.tsx"),
+        ]
     ):
         relative = path.relative_to(root)
         if should_skip(relative):
@@ -373,8 +422,7 @@ def fix_jsdoc_blocks(root: Path, wiki_ref: str) -> int:
             prefix = indent.group(0) if indent else ""
             changed += 1
             return (
-                block[:-2].rstrip()
-                + f"\n{prefix} *\n{prefix} * LLM Wiki: {wiki_ref}\n{prefix} */"
+                block[:-2].rstrip() + f"\n{prefix} *\n{prefix} * LLM Wiki: {wiki_ref}\n{prefix} */"
             )
 
         updated = re.sub(r"/\*\*([\s\S]*?)\*/", replace, text)
@@ -425,12 +473,7 @@ def fix_wiki_raw_links(root: Path, raw_ref: str) -> int:
         if extract_raw_refs(text):
             continue
         suffix = "\n" if text.endswith("\n") else "\n\n"
-        text = (
-            text
-            + suffix
-            + "## Traceability Sources\n\n"
-            + f"- Raw evidence: `{raw_ref}`\n"
-        )
+        text = text + suffix + "## Traceability Sources\n\n" + f"- Raw evidence: `{raw_ref}`\n"
         path.write_text(text, encoding="utf-8")
         changed += 1
     return changed
@@ -466,10 +509,109 @@ def write_manifest(root: Path) -> None:
     )
 
 
+def manifest_entry_raw_path(entry: dict[str, Any]) -> str:
+    raw_path = entry.get("raw_path")
+    if isinstance(raw_path, str) and raw_path:
+        return raw_path
+    path = str(entry.get("path", ""))
+    if path.startswith("raw/"):
+        return path
+    return f"raw/assets/{path}" if path else "raw/assets/manifest.json"
+
+
+def build_rule_ids(root: Path, manifest_data: dict[str, Any]) -> list[dict[str, str]]:
+    prefix = server_id(root).split("-", 1)[0].upper()
+    rules: list[dict[str, str]] = []
+    for index, entry in enumerate(manifest_data.get("entries", []), start=1):
+        raw_path = manifest_entry_raw_path(entry)
+        rules.append(
+            {
+                "code": f"{prefix}-RAW-SOURCE-{index:03d}",
+                "sourcePath": raw_path,
+                "rawPath": raw_path,
+            }
+        )
+    return rules
+
+
+def build_source_urls(root: Path, manifest_data: dict[str, Any]) -> list[dict[str, str]]:
+    urls: list[dict[str, str]] = []
+    seen: set[tuple[str, str]] = set()
+    manifest_entries = [item for item in manifest_data.get("entries", []) if isinstance(item, dict)]
+    default_raw = (
+        manifest_entry_raw_path(manifest_entries[0])
+        if manifest_entries
+        else "raw/assets/manifest.json"
+    )
+
+    for source in load_capabilities(root).get("sourceProvenance", []):
+        if not isinstance(source, dict):
+            continue
+        url = source.get("upstream_url") or source.get("url")
+        path = source.get("path") or default_raw
+        if not isinstance(url, str) or not url:
+            continue
+        raw_path = path if str(path).startswith("raw/") else f"raw/assets/{path}"
+        key = (raw_path, url)
+        if key not in seen:
+            seen.add(key)
+            urls.append({"rawPath": raw_path, "url": url})
+
+    for entry in manifest_entries:
+        url = entry.get("source_url") or manifest_entry_raw_path(entry)
+        if not isinstance(url, str) or not url:
+            continue
+        raw_path = manifest_entry_raw_path(entry)
+        key = (raw_path, url)
+        if key not in seen:
+            seen.add(key)
+            urls.append({"rawPath": raw_path, "url": url})
+    return urls
+
+
+def build_source_url_lookup(source_urls: list[dict[str, str]]) -> dict[str, str]:
+    lookup: dict[str, str] = {}
+    for item in source_urls:
+        raw_path = item["rawPath"]
+        lookup[raw_path] = item["url"]
+        lookup[raw_path.removeprefix("raw/assets/")] = item["url"]
+    return lookup
+
+
+def source_url_for_raw_ref(raw_ref: str, lookup: dict[str, str]) -> str:
+    return lookup.get(raw_ref) or lookup.get(raw_ref.removeprefix("raw/assets/")) or raw_ref
+
+
+def docstring_symbol(item: DocstringRecord) -> str:
+    return f"{item.kind}:{item.file}:{item.line}"
+
+
+def build_raw_manifest(manifest_data: dict[str, Any], manifest_errors: list[str]) -> dict[str, Any]:
+    entries = []
+    for entry in manifest_data.get("entries", []):
+        if not isinstance(entry, dict):
+            continue
+        entries.append(
+            {
+                "path": str(entry.get("path", "")),
+                "rawPath": manifest_entry_raw_path(entry),
+                "checksumSha256": str(entry.get("checksum_sha256", "")),
+            }
+        )
+    return {
+        "path": "raw/assets/manifest.json",
+        "ok": len(manifest_errors) == 0,
+        "entries": entries,
+        "errors": manifest_errors,
+    }
+
+
 def build_report(root: Path) -> dict[str, Any]:
-    manifest_paths, manifest_errors = load_manifest(root)
+    manifest_data, manifest_paths, manifest_errors = load_manifest_data(root)
     docstrings = scan_docstrings(root)
     wiki_pages = scan_wiki(root, manifest_paths)
+    source_urls = build_source_urls(root, manifest_data)
+    source_url_lookup = build_source_url_lookup(source_urls)
     broken_wiki = sum(len(item.broken_wiki_refs) for item in docstrings)
     wiki_source_failures = sum(
         1
@@ -486,10 +628,42 @@ def build_report(root: Path) -> dict[str, Any]:
         "rawManifestFailures": len(manifest_errors),
     }
     return {
-        "schemaVersion": "docstring-wiki-raw-traceability-v1",
+        "schemaVersion": "openqc.lsp.traceability.v1",
+        "serverId": server_id(root),
+        "languageId": language_id(root),
         "generatedAt": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
         "repository": repository_id(root),
         "summary": summary,
+        "docstrings": [
+            {
+                "path": item.file,
+                "wikiPath": item.wiki_refs[0] if item.wiki_refs else "",
+                "symbol": docstring_symbol(item),
+                "file": item.file,
+                "line": item.line,
+                "kind": item.kind,
+                "linked": item.linked,
+                "wikiRefs": item.wiki_refs,
+                "brokenWikiRefs": item.broken_wiki_refs,
+            }
+            for item in docstrings
+        ],
+        "wikiSources": [
+            {
+                "wikiPath": item.file,
+                "rawPath": raw_ref,
+                "sourceUrl": source_url_for_raw_ref(raw_ref, source_url_lookup),
+                "file": item.file,
+                "rawRefs": item.raw_refs,
+                "missingRawRefs": item.missing_raw_refs,
+                "refsMissingFromManifest": item.refs_missing_from_manifest,
+            }
+            for item in wiki_pages
+            for raw_ref in item.raw_refs
+        ],
+        "ruleIds": build_rule_ids(root, manifest_data),
+        "sourceUrls": source_urls,
+        "rawManifest": build_raw_manifest(manifest_data, manifest_errors),
         "manifestErrors": manifest_errors,
         "docstringViolations": [
             asdict(item) for item in docstrings if not item.linked or item.broken_wiki_refs

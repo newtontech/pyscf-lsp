@@ -1,0 +1,1436 @@
+{
+  "schemaVersion": "openqc.lsp.traceability.v1",
+  "serverId": "pyscf-lsp",
+  "languageId": "pyscf",
+  "generatedAt": "2026-06-15T19:27:06+00:00",
+  "repository": "newtontech/pyscf-lsp",
+  "summary": {
+    "docstringsTotal": 69,
+    "docstringsLinked": 69,
+    "brokenWikiLinks": 0,
+    "wikiPagesTotal": 13,
+    "wikiPagesWithRaw": 13,
+    "wikiSourcesWithoutRaw": 0,
+    "rawManifestFailures": 0
+  },
+  "docstrings": [
+    {
+      "path": "scripts/check_docstring_traceability.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:scripts/check_docstring_traceability.py:2",
+      "file": "scripts/check_docstring_traceability.py",
+      "line": 2,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/__init__.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/__init__.py:1",
+      "file": "src/pyscf_lsp/__init__.py",
+      "line": 1,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/agent_lsp.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/agent_lsp.py:1",
+      "file": "src/pyscf_lsp/agent_lsp.py",
+      "line": 1,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/agent_lsp.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/agent_lsp.py:20",
+      "file": "src/pyscf_lsp/agent_lsp.py",
+      "line": 20,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/agent_lsp.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/agent_lsp.py:50",
+      "file": "src/pyscf_lsp/agent_lsp.py",
+      "line": 50,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/agent_lsp.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/agent_lsp.py:122",
+      "file": "src/pyscf_lsp/agent_lsp.py",
+      "line": 122,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/agent_operations.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/agent_operations.py:1",
+      "file": "src/pyscf_lsp/agent_operations.py",
+      "line": 1,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/agent_operations.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/agent_operations.py:36",
+      "file": "src/pyscf_lsp/agent_operations.py",
+      "line": 36,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/agent_operations.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/agent_operations.py:62",
+      "file": "src/pyscf_lsp/agent_operations.py",
+      "line": 62,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/analyzer.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/analyzer.py:1",
+      "file": "src/pyscf_lsp/analyzer.py",
+      "line": 1,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/analyzer.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/analyzer.py:272",
+      "file": "src/pyscf_lsp/analyzer.py",
+      "line": 272,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/analyzer.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/analyzer.py:294",
+      "file": "src/pyscf_lsp/analyzer.py",
+      "line": 294,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/analyzer.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/analyzer.py:306",
+      "file": "src/pyscf_lsp/analyzer.py",
+      "line": 306,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/analyzer.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/analyzer.py:323",
+      "file": "src/pyscf_lsp/analyzer.py",
+      "line": 323,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/analyzer.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/analyzer.py:410",
+      "file": "src/pyscf_lsp/analyzer.py",
+      "line": 410,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/analyzer.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/analyzer.py:428",
+      "file": "src/pyscf_lsp/analyzer.py",
+      "line": 428,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/analyzer.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/analyzer.py:449",
+      "file": "src/pyscf_lsp/analyzer.py",
+      "line": 449,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/analyzer.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/analyzer.py:540",
+      "file": "src/pyscf_lsp/analyzer.py",
+      "line": 540,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/analyzer.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/analyzer.py:613",
+      "file": "src/pyscf_lsp/analyzer.py",
+      "line": 613,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/fix_previews.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/fix_previews.py:1",
+      "file": "src/pyscf_lsp/fix_previews.py",
+      "line": 1,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/fix_previews.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/fix_previews.py:20",
+      "file": "src/pyscf_lsp/fix_previews.py",
+      "line": 20,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/fix_previews.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/fix_previews.py:113",
+      "file": "src/pyscf_lsp/fix_previews.py",
+      "line": 113,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/log_parser.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/log_parser.py:1",
+      "file": "src/pyscf_lsp/log_parser.py",
+      "line": 1,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/log_parser.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/log_parser.py:19",
+      "file": "src/pyscf_lsp/log_parser.py",
+      "line": 19,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/log_parser.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/log_parser.py:31",
+      "file": "src/pyscf_lsp/log_parser.py",
+      "line": 31,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/preflight.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/preflight.py:1",
+      "file": "src/pyscf_lsp/preflight.py",
+      "line": 1,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/preflight.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/preflight.py:176",
+      "file": "src/pyscf_lsp/preflight.py",
+      "line": 176,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/preflight.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/preflight.py:197",
+      "file": "src/pyscf_lsp/preflight.py",
+      "line": 197,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/preflight.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/preflight.py:241",
+      "file": "src/pyscf_lsp/preflight.py",
+      "line": 241,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/preflight.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/preflight.py:262",
+      "file": "src/pyscf_lsp/preflight.py",
+      "line": 262,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/preflight.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/preflight.py:280",
+      "file": "src/pyscf_lsp/preflight.py",
+      "line": 280,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/preflight.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/preflight.py:366",
+      "file": "src/pyscf_lsp/preflight.py",
+      "line": 366,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/preflight.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/preflight.py:435",
+      "file": "src/pyscf_lsp/preflight.py",
+      "line": 435,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/preflight.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/preflight.py:457",
+      "file": "src/pyscf_lsp/preflight.py",
+      "line": 457,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/preflight.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/preflight.py:564",
+      "file": "src/pyscf_lsp/preflight.py",
+      "line": 564,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/preflight.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/preflight.py:642",
+      "file": "src/pyscf_lsp/preflight.py",
+      "line": 642,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/preflight.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/preflight.py:955",
+      "file": "src/pyscf_lsp/preflight.py",
+      "line": 955,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/preflight.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/preflight.py:974",
+      "file": "src/pyscf_lsp/preflight.py",
+      "line": 974,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/preflight.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/preflight.py:1007",
+      "file": "src/pyscf_lsp/preflight.py",
+      "line": 1007,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/preflight.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/preflight.py:1028",
+      "file": "src/pyscf_lsp/preflight.py",
+      "line": 1028,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/preflight.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/preflight.py:1093",
+      "file": "src/pyscf_lsp/preflight.py",
+      "line": 1093,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/preflight.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/preflight.py:1146",
+      "file": "src/pyscf_lsp/preflight.py",
+      "line": 1146,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/preflight.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/preflight.py:209",
+      "file": "src/pyscf_lsp/preflight.py",
+      "line": 209,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/rich_diagnostics.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/rich_diagnostics.py:1",
+      "file": "src/pyscf_lsp/rich_diagnostics.py",
+      "line": 1,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/rich_diagnostics.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/rich_diagnostics.py:57",
+      "file": "src/pyscf_lsp/rich_diagnostics.py",
+      "line": 57,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/rich_diagnostics.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/rich_diagnostics.py:66",
+      "file": "src/pyscf_lsp/rich_diagnostics.py",
+      "line": 66,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/rich_diagnostics.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/rich_diagnostics.py:170",
+      "file": "src/pyscf_lsp/rich_diagnostics.py",
+      "line": 170,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/rich_diagnostics.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/rich_diagnostics.py:243",
+      "file": "src/pyscf_lsp/rich_diagnostics.py",
+      "line": 243,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/rich_diagnostics.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/rich_diagnostics.py:275",
+      "file": "src/pyscf_lsp/rich_diagnostics.py",
+      "line": 275,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/rule_provenance.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/rule_provenance.py:1",
+      "file": "src/pyscf_lsp/rule_provenance.py",
+      "line": 1,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/rule_provenance.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/rule_provenance.py:103",
+      "file": "src/pyscf_lsp/rule_provenance.py",
+      "line": 103,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/rules.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/rules.py:1",
+      "file": "src/pyscf_lsp/rules.py",
+      "line": 1,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/server.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/server.py:1",
+      "file": "src/pyscf_lsp/server.py",
+      "line": 1,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/server.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/server.py:22",
+      "file": "src/pyscf_lsp/server.py",
+      "line": 22,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/server.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/server.py:233",
+      "file": "src/pyscf_lsp/server.py",
+      "line": 233,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/server.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/server.py:358",
+      "file": "src/pyscf_lsp/server.py",
+      "line": 358,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/server.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/server.py:598",
+      "file": "src/pyscf_lsp/server.py",
+      "line": 598,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/server.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/server.py:370",
+      "file": "src/pyscf_lsp/server.py",
+      "line": 370,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/server.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/server.py:384",
+      "file": "src/pyscf_lsp/server.py",
+      "line": 384,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/server.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/server.py:391",
+      "file": "src/pyscf_lsp/server.py",
+      "line": 391,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/server.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/server.py:417",
+      "file": "src/pyscf_lsp/server.py",
+      "line": 417,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/tool.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/tool.py:1",
+      "file": "src/pyscf_lsp/tool.py",
+      "line": 1,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/tool.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/tool.py:73",
+      "file": "src/pyscf_lsp/tool.py",
+      "line": 73,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/tool.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/tool.py:94",
+      "file": "src/pyscf_lsp/tool.py",
+      "line": 94,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/tool.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/tool.py:112",
+      "file": "src/pyscf_lsp/tool.py",
+      "line": 112,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/tool.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/tool.py:129",
+      "file": "src/pyscf_lsp/tool.py",
+      "line": 129,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/tool.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/tool.py:176",
+      "file": "src/pyscf_lsp/tool.py",
+      "line": 176,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/tool.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/tool.py:193",
+      "file": "src/pyscf_lsp/tool.py",
+      "line": 193,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "src/pyscf_lsp/tool.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:src/pyscf_lsp/tool.py:218",
+      "file": "src/pyscf_lsp/tool.py",
+      "line": 218,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    }
+  ],
+  "wikiSources": [
+    {
+      "wikiPath": "wiki/concepts/PySCF_Input_Validation.md",
+      "rawPath": "raw/assets/src__pyscf_lsp__analyzer.py",
+      "sourceUrl": "raw/assets/src__pyscf_lsp__analyzer.py",
+      "file": "wiki/concepts/PySCF_Input_Validation.md",
+      "rawRefs": [
+        "raw/assets/src__pyscf_lsp__analyzer.py"
+      ],
+      "missingRawRefs": [],
+      "refsMissingFromManifest": []
+    },
+    {
+      "wikiPath": "wiki/concepts/diagnostic-engine-v1.md",
+      "rawPath": "raw/assets/README.md",
+      "sourceUrl": "raw/assets/README.md",
+      "file": "wiki/concepts/diagnostic-engine-v1.md",
+      "rawRefs": [
+        "raw/assets/README.md"
+      ],
+      "missingRawRefs": [],
+      "refsMissingFromManifest": []
+    },
+    {
+      "wikiPath": "wiki/concepts/pyscf-method-chaining.md",
+      "rawPath": "raw/assets/pyscf-api-reference.md",
+      "sourceUrl": "raw/assets/pyscf-api-reference.md",
+      "file": "wiki/concepts/pyscf-method-chaining.md",
+      "rawRefs": [
+        "raw/assets/pyscf-api-reference.md",
+        "raw/assets/pyscf-examples.md"
+      ],
+      "missingRawRefs": [],
+      "refsMissingFromManifest": []
+    },
+    {
+      "wikiPath": "wiki/concepts/pyscf-method-chaining.md",
+      "rawPath": "raw/assets/pyscf-examples.md",
+      "sourceUrl": "raw/assets/pyscf-examples.md",
+      "file": "wiki/concepts/pyscf-method-chaining.md",
+      "rawRefs": [
+        "raw/assets/pyscf-api-reference.md",
+        "raw/assets/pyscf-examples.md"
+      ],
+      "missingRawRefs": [],
+      "refsMissingFromManifest": []
+    },
+    {
+      "wikiPath": "wiki/entities/PySCF_LSP.md",
+      "rawPath": "raw/assets/README.md",
+      "sourceUrl": "raw/assets/README.md",
+      "file": "wiki/entities/PySCF_LSP.md",
+      "rawRefs": [
+        "raw/assets/README.md",
+        "raw/assets/pyproject.toml"
+      ],
+      "missingRawRefs": [],
+      "refsMissingFromManifest": []
+    },
+    {
+      "wikiPath": "wiki/entities/PySCF_LSP.md",
+      "rawPath": "raw/assets/pyproject.toml",
+      "sourceUrl": "raw/assets/pyproject.toml",
+      "file": "wiki/entities/PySCF_LSP.md",
+      "rawRefs": [
+        "raw/assets/README.md",
+        "raw/assets/pyproject.toml"
+      ],
+      "missingRawRefs": [],
+      "refsMissingFromManifest": []
+    },
+    {
+      "wikiPath": "wiki/entities/pyscf-dft-module.md",
+      "rawPath": "raw/assets/pyscf-api-reference.md",
+      "sourceUrl": "raw/assets/pyscf-api-reference.md",
+      "file": "wiki/entities/pyscf-dft-module.md",
+      "rawRefs": [
+        "raw/assets/pyscf-api-reference.md",
+        "raw/assets/pyscf-dft-guide.md"
+      ],
+      "missingRawRefs": [],
+      "refsMissingFromManifest": []
+    },
+    {
+      "wikiPath": "wiki/entities/pyscf-dft-module.md",
+      "rawPath": "raw/assets/pyscf-dft-guide.md",
+      "sourceUrl": "raw/assets/pyscf-dft-guide.md",
+      "file": "wiki/entities/pyscf-dft-module.md",
+      "rawRefs": [
+        "raw/assets/pyscf-api-reference.md",
+        "raw/assets/pyscf-dft-guide.md"
+      ],
+      "missingRawRefs": [],
+      "refsMissingFromManifest": []
+    },
+    {
+      "wikiPath": "wiki/entities/pyscf-gto-module.md",
+      "rawPath": "raw/assets/pyscf-api-reference.md",
+      "sourceUrl": "raw/assets/pyscf-api-reference.md",
+      "file": "wiki/entities/pyscf-gto-module.md",
+      "rawRefs": [
+        "raw/assets/pyscf-api-reference.md",
+        "raw/assets/pyscf-examples.md"
+      ],
+      "missingRawRefs": [],
+      "refsMissingFromManifest": []
+    },
+    {
+      "wikiPath": "wiki/entities/pyscf-gto-module.md",
+      "rawPath": "raw/assets/pyscf-examples.md",
+      "sourceUrl": "raw/assets/pyscf-examples.md",
+      "file": "wiki/entities/pyscf-gto-module.md",
+      "rawRefs": [
+        "raw/assets/pyscf-api-reference.md",
+        "raw/assets/pyscf-examples.md"
+      ],
+      "missingRawRefs": [],
+      "refsMissingFromManifest": []
+    },
+    {
+      "wikiPath": "wiki/entities/pyscf-input-format.md",
+      "rawPath": "raw/assets/pyscf-examples.md",
+      "sourceUrl": "raw/assets/pyscf-examples.md",
+      "file": "wiki/entities/pyscf-input-format.md",
+      "rawRefs": [
+        "raw/assets/pyscf-examples.md",
+        "raw/assets/pyscf-readme.md",
+        "raw/assets/pyscf-tutorials.md"
+      ],
+      "missingRawRefs": [],
+      "refsMissingFromManifest": []
+    },
+    {
+      "wikiPath": "wiki/entities/pyscf-input-format.md",
+      "rawPath": "raw/assets/pyscf-readme.md",
+      "sourceUrl": "raw/assets/pyscf-readme.md",
+      "file": "wiki/entities/pyscf-input-format.md",
+      "rawRefs": [
+        "raw/assets/pyscf-examples.md",
+        "raw/assets/pyscf-readme.md",
+        "raw/assets/pyscf-tutorials.md"
+      ],
+      "missingRawRefs": [],
+      "refsMissingFromManifest": []
+    },
+    {
+      "wikiPath": "wiki/entities/pyscf-input-format.md",
+      "rawPath": "raw/assets/pyscf-tutorials.md",
+      "sourceUrl": "raw/assets/pyscf-tutorials.md",
+      "file": "wiki/entities/pyscf-input-format.md",
+      "rawRefs": [
+        "raw/assets/pyscf-examples.md",
+        "raw/assets/pyscf-readme.md",
+        "raw/assets/pyscf-tutorials.md"
+      ],
+      "missingRawRefs": [],
+      "refsMissingFromManifest": []
+    },
+    {
+      "wikiPath": "wiki/entities/pyscf-pbc-module.md",
+      "rawPath": "raw/assets/pyscf-api-reference.md",
+      "sourceUrl": "raw/assets/pyscf-api-reference.md",
+      "file": "wiki/entities/pyscf-pbc-module.md",
+      "rawRefs": [
+        "raw/assets/pyscf-api-reference.md",
+        "raw/assets/pyscf-tutorials.md"
+      ],
+      "missingRawRefs": [],
+      "refsMissingFromManifest": []
+    },
+    {
+      "wikiPath": "wiki/entities/pyscf-pbc-module.md",
+      "rawPath": "raw/assets/pyscf-tutorials.md",
+      "sourceUrl": "raw/assets/pyscf-tutorials.md",
+      "file": "wiki/entities/pyscf-pbc-module.md",
+      "rawRefs": [
+        "raw/assets/pyscf-api-reference.md",
+        "raw/assets/pyscf-tutorials.md"
+      ],
+      "missingRawRefs": [],
+      "refsMissingFromManifest": []
+    },
+    {
+      "wikiPath": "wiki/entities/pyscf-post-hf-methods.md",
+      "rawPath": "raw/assets/pyscf-api-reference.md",
+      "sourceUrl": "raw/assets/pyscf-api-reference.md",
+      "file": "wiki/entities/pyscf-post-hf-methods.md",
+      "rawRefs": [
+        "raw/assets/pyscf-api-reference.md",
+        "raw/assets/pyscf-examples.md",
+        "raw/assets/pyscf-features.md"
+      ],
+      "missingRawRefs": [],
+      "refsMissingFromManifest": []
+    },
+    {
+      "wikiPath": "wiki/entities/pyscf-post-hf-methods.md",
+      "rawPath": "raw/assets/pyscf-examples.md",
+      "sourceUrl": "raw/assets/pyscf-examples.md",
+      "file": "wiki/entities/pyscf-post-hf-methods.md",
+      "rawRefs": [
+        "raw/assets/pyscf-api-reference.md",
+        "raw/assets/pyscf-examples.md",
+        "raw/assets/pyscf-features.md"
+      ],
+      "missingRawRefs": [],
+      "refsMissingFromManifest": []
+    },
+    {
+      "wikiPath": "wiki/entities/pyscf-post-hf-methods.md",
+      "rawPath": "raw/assets/pyscf-features.md",
+      "sourceUrl": "raw/assets/pyscf-features.md",
+      "file": "wiki/entities/pyscf-post-hf-methods.md",
+      "rawRefs": [
+        "raw/assets/pyscf-api-reference.md",
+        "raw/assets/pyscf-examples.md",
+        "raw/assets/pyscf-features.md"
+      ],
+      "missingRawRefs": [],
+      "refsMissingFromManifest": []
+    },
+    {
+      "wikiPath": "wiki/entities/pyscf-scf-methods.md",
+      "rawPath": "raw/assets/pyscf-api-reference.md",
+      "sourceUrl": "raw/assets/pyscf-api-reference.md",
+      "file": "wiki/entities/pyscf-scf-methods.md",
+      "rawRefs": [
+        "raw/assets/pyscf-api-reference.md",
+        "raw/assets/pyscf-examples.md"
+      ],
+      "missingRawRefs": [],
+      "refsMissingFromManifest": []
+    },
+    {
+      "wikiPath": "wiki/entities/pyscf-scf-methods.md",
+      "rawPath": "raw/assets/pyscf-examples.md",
+      "sourceUrl": "raw/assets/pyscf-examples.md",
+      "file": "wiki/entities/pyscf-scf-methods.md",
+      "rawRefs": [
+        "raw/assets/pyscf-api-reference.md",
+        "raw/assets/pyscf-examples.md"
+      ],
+      "missingRawRefs": [],
+      "refsMissingFromManifest": []
+    },
+    {
+      "wikiPath": "wiki/synthesis/Agent_Diagnostic_Workflow.md",
+      "rawPath": "raw/assets/src__pyscf_lsp__analyzer.py",
+      "sourceUrl": "raw/assets/src__pyscf_lsp__analyzer.py",
+      "file": "wiki/synthesis/Agent_Diagnostic_Workflow.md",
+      "rawRefs": [
+        "raw/assets/src__pyscf_lsp__analyzer.py"
+      ],
+      "missingRawRefs": [],
+      "refsMissingFromManifest": []
+    },
+    {
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "rawPath": "raw/assets/README.md",
+      "sourceUrl": "raw/assets/README.md",
+      "file": "wiki/synthesis/openqc-agent-context.md",
+      "rawRefs": [
+        "raw/assets/README.md"
+      ],
+      "missingRawRefs": [],
+      "refsMissingFromManifest": []
+    },
+    {
+      "wikiPath": "wiki/synthesis/pyscf-documentation-index.md",
+      "rawPath": "raw/assets/README.md",
+      "sourceUrl": "raw/assets/README.md",
+      "file": "wiki/synthesis/pyscf-documentation-index.md",
+      "rawRefs": [
+        "raw/assets/README.md"
+      ],
+      "missingRawRefs": [],
+      "refsMissingFromManifest": []
+    }
+  ],
+  "ruleIds": [
+    {
+      "code": "PYSCF-RAW-SOURCE-001",
+      "sourcePath": "raw/assets/AGENTS.md",
+      "rawPath": "raw/assets/AGENTS.md"
+    },
+    {
+      "code": "PYSCF-RAW-SOURCE-002",
+      "sourcePath": "raw/assets/DIAGNOSTIC_ENGINE_V1.md",
+      "rawPath": "raw/assets/DIAGNOSTIC_ENGINE_V1.md"
+    },
+    {
+      "code": "PYSCF-RAW-SOURCE-003",
+      "sourcePath": "raw/assets/README.md",
+      "rawPath": "raw/assets/README.md"
+    },
+    {
+      "code": "PYSCF-RAW-SOURCE-004",
+      "sourcePath": "raw/assets/docs__DIAGNOSTIC_ENGINE_V1.md",
+      "rawPath": "raw/assets/docs__DIAGNOSTIC_ENGINE_V1.md"
+    },
+    {
+      "code": "PYSCF-RAW-SOURCE-005",
+      "sourcePath": "raw/assets/pyproject.toml",
+      "rawPath": "raw/assets/pyproject.toml"
+    },
+    {
+      "code": "PYSCF-RAW-SOURCE-006",
+      "sourcePath": "raw/assets/pyscf-api-reference.md",
+      "rawPath": "raw/assets/pyscf-api-reference.md"
+    },
+    {
+      "code": "PYSCF-RAW-SOURCE-007",
+      "sourcePath": "raw/assets/pyscf-dft-guide.md",
+      "rawPath": "raw/assets/pyscf-dft-guide.md"
+    },
+    {
+      "code": "PYSCF-RAW-SOURCE-008",
+      "sourcePath": "raw/assets/pyscf-examples.md",
+      "rawPath": "raw/assets/pyscf-examples.md"
+    },
+    {
+      "code": "PYSCF-RAW-SOURCE-009",
+      "sourcePath": "raw/assets/pyscf-features.md",
+      "rawPath": "raw/assets/pyscf-features.md"
+    },
+    {
+      "code": "PYSCF-RAW-SOURCE-010",
+      "sourcePath": "raw/assets/pyscf-module-reference.md",
+      "rawPath": "raw/assets/pyscf-module-reference.md"
+    },
+    {
+      "code": "PYSCF-RAW-SOURCE-011",
+      "sourcePath": "raw/assets/pyscf-readme.md",
+      "rawPath": "raw/assets/pyscf-readme.md"
+    },
+    {
+      "code": "PYSCF-RAW-SOURCE-012",
+      "sourcePath": "raw/assets/pyscf-tutorials.md",
+      "rawPath": "raw/assets/pyscf-tutorials.md"
+    },
+    {
+      "code": "PYSCF-RAW-SOURCE-013",
+      "sourcePath": "raw/assets/src__pyscf_lsp__analyzer.py",
+      "rawPath": "raw/assets/src__pyscf_lsp__analyzer.py"
+    },
+    {
+      "code": "PYSCF-RAW-SOURCE-014",
+      "sourcePath": "raw/assets/src__pyscf_lsp__server.py",
+      "rawPath": "raw/assets/src__pyscf_lsp__server.py"
+    },
+    {
+      "code": "PYSCF-RAW-SOURCE-015",
+      "sourcePath": "raw/assets/src_analyzer.py.md",
+      "rawPath": "raw/assets/src_analyzer.py.md"
+    },
+    {
+      "code": "PYSCF-RAW-SOURCE-016",
+      "sourcePath": "raw/assets/src_server.py.md",
+      "rawPath": "raw/assets/src_server.py.md"
+    }
+  ],
+  "sourceUrls": [
+    {
+      "rawPath": "raw/assets/AGENTS.md",
+      "url": "https://pyscf.org/user/"
+    },
+    {
+      "rawPath": "raw/assets/AGENTS.md",
+      "url": "raw/assets/AGENTS.md"
+    },
+    {
+      "rawPath": "raw/assets/DIAGNOSTIC_ENGINE_V1.md",
+      "url": "raw/assets/DIAGNOSTIC_ENGINE_V1.md"
+    },
+    {
+      "rawPath": "raw/assets/README.md",
+      "url": "raw/assets/README.md"
+    },
+    {
+      "rawPath": "raw/assets/docs__DIAGNOSTIC_ENGINE_V1.md",
+      "url": "raw/assets/docs__DIAGNOSTIC_ENGINE_V1.md"
+    },
+    {
+      "rawPath": "raw/assets/pyproject.toml",
+      "url": "raw/assets/pyproject.toml"
+    },
+    {
+      "rawPath": "raw/assets/pyscf-api-reference.md",
+      "url": "raw/assets/pyscf-api-reference.md"
+    },
+    {
+      "rawPath": "raw/assets/pyscf-dft-guide.md",
+      "url": "raw/assets/pyscf-dft-guide.md"
+    },
+    {
+      "rawPath": "raw/assets/pyscf-examples.md",
+      "url": "raw/assets/pyscf-examples.md"
+    },
+    {
+      "rawPath": "raw/assets/pyscf-features.md",
+      "url": "raw/assets/pyscf-features.md"
+    },
+    {
+      "rawPath": "raw/assets/pyscf-module-reference.md",
+      "url": "raw/assets/pyscf-module-reference.md"
+    },
+    {
+      "rawPath": "raw/assets/pyscf-readme.md",
+      "url": "raw/assets/pyscf-readme.md"
+    },
+    {
+      "rawPath": "raw/assets/pyscf-tutorials.md",
+      "url": "raw/assets/pyscf-tutorials.md"
+    },
+    {
+      "rawPath": "raw/assets/src__pyscf_lsp__analyzer.py",
+      "url": "raw/assets/src__pyscf_lsp__analyzer.py"
+    },
+    {
+      "rawPath": "raw/assets/src__pyscf_lsp__server.py",
+      "url": "raw/assets/src__pyscf_lsp__server.py"
+    },
+    {
+      "rawPath": "raw/assets/src_analyzer.py.md",
+      "url": "raw/assets/src_analyzer.py.md"
+    },
+    {
+      "rawPath": "raw/assets/src_server.py.md",
+      "url": "raw/assets/src_server.py.md"
+    }
+  ],
+  "rawManifest": {
+    "path": "raw/assets/manifest.json",
+    "ok": true,
+    "entries": [
+      {
+        "path": "AGENTS.md",
+        "rawPath": "raw/assets/AGENTS.md",
+        "checksumSha256": "498d47546310ae81010d5462f45dd4977f5e8b5e84c1218c64a15ae956ed7286"
+      },
+      {
+        "path": "DIAGNOSTIC_ENGINE_V1.md",
+        "rawPath": "raw/assets/DIAGNOSTIC_ENGINE_V1.md",
+        "checksumSha256": "503841eca4c3b60372260c4bcb1c122cad4ac37c0c1c103cd2990debe11f1313"
+      },
+      {
+        "path": "README.md",
+        "rawPath": "raw/assets/README.md",
+        "checksumSha256": "6fa3224448ebbff3c71536ebe41a2ef2d961fd759b2a2f7708c7811b97437325"
+      },
+      {
+        "path": "docs__DIAGNOSTIC_ENGINE_V1.md",
+        "rawPath": "raw/assets/docs__DIAGNOSTIC_ENGINE_V1.md",
+        "checksumSha256": "503841eca4c3b60372260c4bcb1c122cad4ac37c0c1c103cd2990debe11f1313"
+      },
+      {
+        "path": "pyproject.toml",
+        "rawPath": "raw/assets/pyproject.toml",
+        "checksumSha256": "5c5dd989fbcf13fc8f1a94d2a7cfd6f0762d88881325fd3983dc524b0a97743d"
+      },
+      {
+        "path": "pyscf-api-reference.md",
+        "rawPath": "raw/assets/pyscf-api-reference.md",
+        "checksumSha256": "1587bd95f82fdaa63b0341c0b79fe6453faa8843dfd82059e41bb6a2eca42712"
+      },
+      {
+        "path": "pyscf-dft-guide.md",
+        "rawPath": "raw/assets/pyscf-dft-guide.md",
+        "checksumSha256": "5ead1dda2562dcd39736f3f27eeb69e6227122812d3fba5ada4d49430775ed99"
+      },
+      {
+        "path": "pyscf-examples.md",
+        "rawPath": "raw/assets/pyscf-examples.md",
+        "checksumSha256": "6edf0fdd4d814789108f7189f6c1e4855c8cfbf7145ba420e85b1fdb925bc380"
+      },
+      {
+        "path": "pyscf-features.md",
+        "rawPath": "raw/assets/pyscf-features.md",
+        "checksumSha256": "5d1b6dde695db413035349e5e02381dd37f0d340db375b8591e24e7a0e63d7f6"
+      },
+      {
+        "path": "pyscf-module-reference.md",
+        "rawPath": "raw/assets/pyscf-module-reference.md",
+        "checksumSha256": "45e0f2cb65fad97f465bdafcf79f1a43865c7bc413248fa6abb8dd804a6d057e"
+      },
+      {
+        "path": "pyscf-readme.md",
+        "rawPath": "raw/assets/pyscf-readme.md",
+        "checksumSha256": "70f01843d8c672a0e42534bbf42c3bf7f38959b23dc0a71f1b1e3598e0d363fd"
+      },
+      {
+        "path": "pyscf-tutorials.md",
+        "rawPath": "raw/assets/pyscf-tutorials.md",
+        "checksumSha256": "fd33205a30826ab30b2d9bd034c808e9bff1c750ff0e7788e32541361c94ee11"
+      },
+      {
+        "path": "src__pyscf_lsp__analyzer.py",
+        "rawPath": "raw/assets/src__pyscf_lsp__analyzer.py",
+        "checksumSha256": "91e08ec8f63a15f7a7fb2bc54639281931796751e30ee3749c27742c082468cf"
+      },
+      {
+        "path": "src__pyscf_lsp__server.py",
+        "rawPath": "raw/assets/src__pyscf_lsp__server.py",
+        "checksumSha256": "6ccc132b12085fdfb59c45a6628aba16c83f1dbde02918f5178ba1169ac638ea"
+      },
+      {
+        "path": "src_analyzer.py.md",
+        "rawPath": "raw/assets/src_analyzer.py.md",
+        "checksumSha256": "0581d4fc3b23066b2b9630f9a891d12b4a66295e906f2a9df0c58ca997171924"
+      },
+      {
+        "path": "src_server.py.md",
+        "rawPath": "raw/assets/src_server.py.md",
+        "checksumSha256": "aac493169c58e6d9ba5c3e6ce3ba1175af5c939a4ff5f858ff30995c66033941"
+      }
+    ],
+    "errors": []
+  },
+  "manifestErrors": [],
+  "docstringViolations": [],
+  "wikiViolations": []
+}

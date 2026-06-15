@@ -1,4 +1,7 @@
-"""Agent-facing CLI for Diagnostic Engine v1 operations."""
+"""Agent-facing CLI for Diagnostic Engine v1 operations.
+
+LLM Wiki: wiki/synthesis/openqc-agent-context.md
+"""
 
 from __future__ import annotations
 
@@ -69,9 +72,11 @@ def _collect_diagnostics(path: Path) -> list[Any]:
 def _load_intent(path: Path) -> dict[str, Any] | None:
     """Load the optional preflight intent contract for a case directory.
 
-    The intent contract is the only place preflight policy overrides live
-    (e.g. ``software_version``, ``max_cycle_warning``). It is a workspace-local
-    artifact, never a MatMaster/Bohrium runtime concept.
+        The intent contract is the only place preflight policy overrides live
+        (e.g. ``software_version``, ``max_cycle_warning``). It is a workspace-local
+        artifact, never a MatMaster/Bohrium runtime concept.
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
     """
 
     case_dir = path if path.is_dir() else path.parent
@@ -88,10 +93,12 @@ def _load_intent(path: Path) -> dict[str, Any] | None:
 def _looks_like_workspace(case_dir: Path) -> bool:
     """True when a directory is a real generated-input workspace.
 
-    Preflight needs at least one ``.py`` PySCF script to build a meaningful
-    cross-artifact graph. A directory with only non-Python artifacts falls back
-    to the legacy analyzer path so callers are not flooded with blocking
-    missing-artifact errors before the script exists.
+        Preflight needs at least one ``.py`` PySCF script to build a meaningful
+        cross-artifact graph. A directory with only non-Python artifacts falls back
+        to the legacy analyzer path so callers are not flooded with blocking
+        missing-artifact errors before the script exists.
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
     """
 
     if not case_dir.is_dir():
@@ -104,8 +111,10 @@ def _collect_preflight(
 ) -> tuple[list[Any], list[dict[str, Any]], dict[str, Any]]:
     """Return (preflight_diagnostics, artifact_graph, version_assumption).
 
-    Imported lazily so callers that never touch preflight (e.g. single-file
-    LSP hover) pay no import cost.
+        Imported lazily so callers that never touch preflight (e.g. single-file
+        LSP hover) pay no import cost.
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
     """
 
     from .preflight import preflight_diagnostics, resolve_version_assumption
@@ -117,7 +126,10 @@ def _collect_preflight(
 
 
 def check_log_path(path: Path) -> dict[str, Any]:
-    """Return diagnostics parsed from a PySCF runtime log file."""
+    """Return diagnostics parsed from a PySCF runtime log file.
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
+    """
     from .log_parser import parse_log_file
     from .rich_diagnostics import agent_check_payload
 
@@ -161,7 +173,10 @@ def check_path(path: Path) -> dict[str, Any]:
 
 
 def _dedupe_preflight(legacy: list[Any], preflight: list[Any]) -> list[Any]:
-    """Drop preflight diagnostics whose finding the legacy analyzer already emitted."""
+    """Drop preflight diagnostics whose finding the legacy analyzer already emitted.
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
+    """
 
     emitted_legacy = {
         getattr(item, "code", None) or (item.get("code") if isinstance(item, dict) else None)
@@ -175,7 +190,10 @@ def _dedupe_preflight(legacy: list[Any], preflight: list[Any]) -> list[Any]:
 
 
 def preflight_path(path: Path) -> dict[str, Any]:
-    """Return a preflight-only payload (universal checks, no legacy analyzer)."""
+    """Return a preflight-only payload (universal checks, no legacy analyzer).
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
+    """
 
     from .preflight import preflight_diagnostics, resolve_version_assumption
 
@@ -199,9 +217,11 @@ def preflight_path(path: Path) -> dict[str, Any]:
 def manifest_path(path: Path | None = None) -> dict[str, Any]:
     """Return the fleet preflight manifest.
 
-    When ``path`` is given, fixture expectations declared in
-    ``.pyscf-lsp/fixtures.json`` are merged in so the parent probe can confirm
-    a case directory exercises the documented codes.
+        When ``path`` is given, fixture expectations declared in
+        ``.pyscf-lsp/fixtures.json`` are merged in so the parent probe can confirm
+        a case directory exercises the documented codes.
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
     """
 
     from .preflight import fleet_manifest

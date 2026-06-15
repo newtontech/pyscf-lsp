@@ -2,6 +2,8 @@
 
 Provides completion, hover, diagnostics, document symbols, formatting,
 and code actions for PySCF Python scripts via the Language Server Protocol.
+
+LLM Wiki: wiki/synthesis/openqc-agent-context.md
 """
 
 from __future__ import annotations
@@ -17,7 +19,10 @@ from .analyzer import analyze_file, format_text
 
 
 def _publish_file_diagnostics(server: PySCFLanguageServer, uri: str, content: str) -> None:
-    """Compute diagnostics for *content* and publish them via the server."""
+    """Compute diagnostics for *content* and publish them via the server.
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
+    """
     raw_diags = server.get_diagnostics(uri, content)
     lsp_diags = [
         lsp.Diagnostic(
@@ -225,7 +230,10 @@ def _build_completion_items(ns: dict[str, str], prefix: str = "") -> list[dict[s
 def _generate_code_actions(
     uri: str, diagnostics: list[lsp.Diagnostic], content: str
 ) -> list[lsp.CodeAction]:
-    """Generate quick-fix code actions from diagnostics."""
+    """Generate quick-fix code actions from diagnostics.
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
+    """
     actions: list[lsp.CodeAction] = []
     lines = content.splitlines()
 
@@ -347,7 +355,10 @@ def _generate_code_actions(
 
 
 class PySCFLanguageServer(LanguageServer):
-    """PySCF Language Server with completion, hover, diagnostics, and symbols."""
+    """PySCF Language Server with completion, hover, diagnostics, and symbols.
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
+    """
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
@@ -356,7 +367,10 @@ class PySCFLanguageServer(LanguageServer):
     # -- Public query API (used by tests) --
 
     def get_completions(self, context: str) -> list[dict[str, Any]]:
-        """Return completion items for *context* (e.g. 'pyscf.scf' or 'mf.')."""
+        """Return completion items for *context* (e.g. 'pyscf.scf' or 'mf.').
+
+        LLM Wiki: wiki/synthesis/openqc-agent-context.md
+        """
         key = context.rstrip(".")
         if key in _NS:
             return _build_completion_items(_NS[key])
@@ -367,11 +381,17 @@ class PySCFLanguageServer(LanguageServer):
         return []
 
     def get_hover(self, symbol: str) -> str | None:
-        """Return hover documentation for *symbol*, or None."""
+        """Return hover documentation for *symbol*, or None.
+
+        LLM Wiki: wiki/synthesis/openqc-agent-context.md
+        """
         return _FLAT_HOVER.get(symbol)
 
     def get_diagnostics(self, uri: str, content: str) -> list[dict[str, Any]]:
-        """Run the analyzer on *content* and return LSP-shaped diagnostics."""
+        """Run the analyzer on *content* and return LSP-shaped diagnostics.
+
+        LLM Wiki: wiki/synthesis/openqc-agent-context.md
+        """
         from pathlib import Path
 
         path = Path(uri)
@@ -379,7 +399,10 @@ class PySCFLanguageServer(LanguageServer):
         return [
             {
                 "range": {
-                    "start": {"line": max(0, d.line - 1), "character": max(0, d.column - 1)},
+                    "start": {
+                        "line": max(0, d.line - 1),
+                        "character": max(0, d.column - 1),
+                    },
                     "end": {"line": max(0, d.line - 1), "character": 1000},
                 },
                 "severity": 1 if d.severity == "error" else 2,
@@ -391,7 +414,10 @@ class PySCFLanguageServer(LanguageServer):
         ]
 
     def get_document_symbols(self, content: str) -> list[dict[str, Any]]:
-        """Extract top-level symbols (functions, classes, assignments) from Python."""
+        """Extract top-level symbols (functions, classes, assignments) from Python.
+
+        LLM Wiki: wiki/synthesis/openqc-agent-context.md
+        """
         symbols: list[dict[str, Any]] = []
         try:
             tree = ast.parse(content)
@@ -569,5 +595,8 @@ class PySCFLanguageServer(LanguageServer):
 
 
 def create_server(name: str = "pyscf-lsp", version: str = "0.1.0") -> PySCFLanguageServer:
-    """Create and return a configured PySCFLanguageServer."""
+    """Create and return a configured PySCFLanguageServer.
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
+    """
     return PySCFLanguageServer(name, version)

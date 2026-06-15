@@ -68,3 +68,7 @@ The documentation covers these PySCF modules:
 - `pyscf.geomopt` -- Geometry optimization
 - `pyscf.pbc` -- Periodic boundary conditions
 - `pyscf.x2c` -- Exact two-component relativistic
+
+## Traceability Sources
+
+- Raw evidence: `raw/assets/README.md`

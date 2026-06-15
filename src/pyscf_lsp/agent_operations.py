@@ -3,6 +3,8 @@
 The editor servers already own the expensive parsing and validation logic. This
 module exposes the same information in a command-line friendly JSON shape for
 agents that need LSP-style context without starting an editor client.
+
+LLM Wiki: wiki/synthesis/openqc-agent-context.md
 """
 
 from __future__ import annotations
@@ -31,7 +33,10 @@ def with_capabilities(
     reason: str | None = None,
     source: str = "agent_operations",
 ) -> dict[str, Any]:
-    """Attach the fleet-standard capabilities block to a payload."""
+    """Attach the fleet-standard capabilities block to a payload.
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
+    """
     payload["capabilities"] = {
         "operations": list(OPERATIONS),
         "operation": operation,
@@ -54,7 +59,10 @@ def operation_path(
     line: int = 0,
     character: int = 0,
 ) -> dict[str, Any]:
-    """Return a Diagnostic Engine v1 payload for non-check agent operations."""
+    """Return a Diagnostic Engine v1 payload for non-check agent operations.
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
+    """
     path = Path(path)
     file_type = file_type_func(path)
     text = _read_text(path)
@@ -419,7 +427,13 @@ def _call_provider(fn: Callable[..., Any], *values: Any) -> Any:
         if param.default is inspect.Parameter.empty
         and param.kind in (param.POSITIONAL_ONLY, param.POSITIONAL_OR_KEYWORD)
     ]
-    attempts: list[tuple[Any, ...]] = [(), values[:1], values[:2], values[:3], values[:4]]
+    attempts: list[tuple[Any, ...]] = [
+        (),
+        values[:1],
+        values[:2],
+        values[:3],
+        values[:4],
+    ]
     for args in attempts:
         if len(args) < len(required):
             continue
@@ -444,7 +458,10 @@ def _normalize_completion_item(item: Any) -> dict[str, Any]:
 
 def _normalize_symbol(item: Any) -> dict[str, Any]:
     if not isinstance(item, dict):
-        data = {"name": str(getattr(item, "name", item)), "kind": getattr(item, "kind", "symbol")}
+        data = {
+            "name": str(getattr(item, "name", item)),
+            "kind": getattr(item, "kind", "symbol"),
+        }
     else:
         data = dict(item)
     name = str(data.get("name") or data.get("label") or "symbol")
