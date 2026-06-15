@@ -9,6 +9,8 @@ Implements all diagnostic rules:
   PYSCF-W091: missing_run_call
   PYSCF-W092: invalid_charge_spin
   PYSCF-W093: scf_not_converged (runtime log)
+
+LLM Wiki: wiki/synthesis/openqc-agent-context.md
 """
 
 from __future__ import annotations
@@ -267,7 +269,10 @@ def _analyze_python(path: Path, content: str) -> list[Diagnostic]:
 
 
 def _module_aliases(aliases: dict[str, str], modules: set[str]) -> set[str]:
-    """Return local names bound to one of the given PySCF modules."""
+    """Return local names bound to one of the given PySCF modules.
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
+    """
     names: set[str] = set()
     for local, target in aliases.items():
         root = target.split(".")[0]
@@ -286,7 +291,10 @@ def _is_molecule_call(func: ast.expr, gto_aliases: set[str]) -> bool:
 
 
 def _has_molecule_creation(tree: ast.AST, *, gto_aliases: set[str] | None = None) -> bool:
-    """Check if the AST contains a gto.M() or Mole() construction."""
+    """Check if the AST contains a gto.M() or Mole() construction.
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
+    """
     aliases = gto_aliases or set()
     for node in ast.walk(tree):
         if isinstance(node, ast.Call) and _is_molecule_call(node.func, aliases):
@@ -295,7 +303,10 @@ def _has_molecule_creation(tree: ast.AST, *, gto_aliases: set[str] | None = None
 
 
 def _has_basis_kwarg(tree: ast.AST, content: str) -> bool:
-    """Check if the content has explicit basis= specification."""
+    """Check if the content has explicit basis= specification.
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
+    """
     # AST-level check: keyword argument named 'basis' in any Call
     for node in ast.walk(tree):
         if isinstance(node, ast.Call):
@@ -309,7 +320,10 @@ def _has_basis_kwarg(tree: ast.AST, content: str) -> bool:
 def _check_charge_spin(
     tree: ast.AST, path: Path, *, gto_aliases: set[str] | None = None
 ) -> list[Diagnostic]:
-    """Check for invalid charge and spin values in gto.M() calls."""
+    """Check for invalid charge and spin values in gto.M() calls.
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
+    """
     aliases = gto_aliases or set()
     diagnostics: list[Diagnostic] = []
     for node in ast.walk(tree):
@@ -327,7 +341,7 @@ def _check_charge_spin(
                             f"charge should be a number, got {ast.dump(kw.value)}",
                             str(path),
                             kw.value.lineno if hasattr(kw.value, "lineno") else 1,
-                            kw.value.col_offset if hasattr(kw.value, "col_offset") else 1,
+                            (kw.value.col_offset if hasattr(kw.value, "col_offset") else 1),
                             suggested_fix={"kind": "fix_charge", "expected": "integer"},
                             confidence=0.88,
                         )
@@ -354,8 +368,11 @@ def _check_charge_spin(
                             "spin should be non-negative",
                             str(path),
                             kw.value.lineno if hasattr(kw.value, "lineno") else 1,
-                            kw.value.col_offset if hasattr(kw.value, "col_offset") else 1,
-                            suggested_fix={"kind": "fix_spin", "expected": "non-negative integer"},
+                            (kw.value.col_offset if hasattr(kw.value, "col_offset") else 1),
+                            suggested_fix={
+                                "kind": "fix_spin",
+                                "expected": "non-negative integer",
+                            },
                             confidence=0.85,
                         )
                     )
@@ -368,7 +385,10 @@ def _check_charge_spin(
                             str(path),
                             kw.lineno or 1,
                             kw.col_offset or 1,
-                            suggested_fix={"kind": "fix_spin", "expected": "non-negative integer"},
+                            suggested_fix={
+                                "kind": "fix_spin",
+                                "expected": "non-negative integer",
+                            },
                             confidence=0.92,
                         )
                     )
@@ -387,7 +407,10 @@ def _import_names(tree: ast.AST) -> set[str]:
 
 
 def _import_aliases(tree: ast.AST) -> dict[str, str]:
-    """Map alias -> original module name for import statements."""
+    """Map alias -> original module name for import statements.
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
+    """
     aliases: dict[str, str] = {}
     for node in ast.walk(tree):
         if isinstance(node, ast.ImportFrom) and node.module:
@@ -402,7 +425,10 @@ def _import_aliases(tree: ast.AST) -> dict[str, str]:
 
 
 def _collect_calls(tree: ast.AST) -> list[tuple[str, int]]:
-    """Collect (function_name, line_number) pairs for all calls."""
+    """Collect (function_name, line_number) pairs for all calls.
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
+    """
     calls: list[tuple[str, int]] = []
     for node in ast.walk(tree):
         if isinstance(node, ast.Call):
@@ -422,9 +448,11 @@ def _collect_calls(tree: ast.AST) -> list[tuple[str, int]]:
 def parse_log(content: str, *, path: str = "<log>") -> list[Diagnostic]:
     """Parse PySCF runtime log output for diagnostics.
 
-    Detects:
-      - PYSCF-W093: SCF not converged
-      - PYSCF-E093: Traceback errors
+        Detects:
+          - PYSCF-W093: SCF not converged
+          - PYSCF-E093: Traceback errors
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
     """
     diagnostics: list[Diagnostic] = []
     lines = content.splitlines()
@@ -442,7 +470,10 @@ def parse_log(content: str, *, path: str = "<log>") -> list[Diagnostic]:
                     path,
                     line_no,
                     evidence=[stripped],
-                    suggested_fix={"kind": "increase_max_cycle", "hint": "Try mf.max_cycle = 200"},
+                    suggested_fix={
+                        "kind": "increase_max_cycle",
+                        "hint": "Try mf.max_cycle = 200",
+                    },
                     confidence=0.95,
                 )
             )
@@ -508,11 +539,13 @@ def _meaningful_lines(content: str) -> list[tuple[int, str]]:
 def format_text(content: str, *, is_python: bool | None = None) -> str:
     """Format text content safely.
 
-    For Python source the formatter only normalises trailing whitespace
-    and ensures a final newline without reflowing code (safe formatter).
-    For config-style input it aligns key = value pairs.
+        For Python source the formatter only normalises trailing whitespace
+        and ensures a final newline without reflowing code (safe formatter).
+        For config-style input it aligns key = value pairs.
 
-    The formatter is guaranteed idempotent: format(format(x)) == format(x).
+        The formatter is guaranteed idempotent: format(format(x)) == format(x).
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
     """
     if is_python is None:
         is_python = _looks_like_python(content)
@@ -579,9 +612,11 @@ _PYTHON_KEYWORDS = frozenset(
 def _format_python(content: str) -> str:
     """Safe Python formatter: strip trailing whitespace, ensure final newline.
 
-    Preserves AST structure (no reflowing). Idempotent by construction:
-    after one pass, all lines have no trailing whitespace and the text
-    ends with exactly one newline.
+        Preserves AST structure (no reflowing). Idempotent by construction:
+        after one pass, all lines have no trailing whitespace and the text
+        ends with exactly one newline.
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
     """
     lines = [line.rstrip() for line in content.splitlines()]
     # Remove trailing blank lines

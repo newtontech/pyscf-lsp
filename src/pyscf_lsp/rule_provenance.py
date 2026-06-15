@@ -2,6 +2,8 @@
 
 Maps stable rule codes to wiki entities and captured official-doc assets so
 agent consumers can trace diagnostics back to documentation.
+
+LLM Wiki: wiki/synthesis/openqc-agent-context.md
 """
 
 from __future__ import annotations
@@ -98,7 +100,10 @@ RULE_PROVENANCE: dict[str, dict[str, Any]] = {
 
 
 def provenance_for_code(code: str | None) -> dict[str, Any] | None:
-    """Return provenance metadata for a rule code, if documented."""
+    """Return provenance metadata for a rule code, if documented.
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
+    """
     if not code:
         return None
     return RULE_PROVENANCE.get(str(code))

@@ -3,6 +3,8 @@
 Extracts diagnostics from PySCF runtime logs:
   - PYSCF-W093: SCF not converged
   - PYSCF-E093: Traceback errors
+
+LLM Wiki: wiki/synthesis/openqc-agent-context.md
 """
 
 from __future__ import annotations
@@ -14,7 +16,10 @@ from .diagnostics import Diagnostic
 
 
 def parse_log_file(path: Path) -> list[Diagnostic]:
-    """Parse a PySCF log file and return diagnostics."""
+    """Parse a PySCF log file and return diagnostics.
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
+    """
     try:
         content = path.read_text(encoding="utf-8")
     except UnicodeDecodeError:
@@ -23,5 +28,8 @@ def parse_log_file(path: Path) -> list[Diagnostic]:
 
 
 def parse_log_text(content: str, *, path: str = "<stdin>") -> list[Diagnostic]:
-    """Parse PySCF log text and return diagnostics."""
+    """Parse PySCF log text and return diagnostics.
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
+    """
     return parse_log(content, path=path)

@@ -2,6 +2,8 @@
 
 Produces machine-readable text edits without applying them. Shared by the agent
 CLI ``fix`` operation and the LSP code-action path.
+
+LLM Wiki: wiki/synthesis/openqc-agent-context.md
 """
 
 from __future__ import annotations
@@ -15,7 +17,10 @@ def fix_previews_for_diagnostics(
     uri: str,
     content: str,
 ) -> list[dict[str, Any]]:
-    """Return preview-only quick-fix actions with rule ids and edit payloads."""
+    """Return preview-only quick-fix actions with rule ids and edit payloads.
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
+    """
     lines = content.splitlines()
     actions: list[dict[str, Any]] = []
 
@@ -105,7 +110,10 @@ def fix_previews_for_diagnostics(
 
 
 def _molecule_call_line(lines: list[str], hint_line: int) -> int:
-    """Return the line index of a Mole constructor call."""
+    """Return the line index of a Mole constructor call.
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
+    """
     candidates = [
         index
         for index, line in enumerate(lines)

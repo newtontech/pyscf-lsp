@@ -14,6 +14,8 @@ Warning codes (W):
   PYSCF-W091  missing_run_call        Workflow never calls .kernel() or .run()
   PYSCF-W092  invalid_charge_spin     Non-numeric charge or negative spin
   PYSCF-W093  scf_not_converged       SCF did not converge (log parse)
+
+LLM Wiki: wiki/synthesis/openqc-agent-context.md
 """
 
 from __future__ import annotations

@@ -26,6 +26,8 @@ The diagnostics emitted here are plain dictionaries (not the legacy
 ``Diagnostic`` dataclass) so they can carry the richer ``DiagnosticEnvelope/v1``
 fields (``source_provenance``, ``domain_tags``, ``facts``, ``artifact_roles``,
 ``version_assumption``, ``actions``) directly.
+
+LLM Wiki: wiki/synthesis/openqc-agent-context.md
 """
 
 from __future__ import annotations
@@ -173,11 +175,13 @@ _MultiRef_METHODS = frozenset({"CASCI", "CASSCF"})
 class ArtifactNode:
     """A node in the cross-artifact graph.
 
-    ``role`` is one of the fleet-generic roles above; ``path`` is the resolved
-    filesystem path (may be a non-existent reference, which is itself a
-    finding, or ``None`` for inline artifacts like an ``atom=`` string);
-    ``source`` records where the reference originated so consumers can trace
-    provenance.
+        ``role`` is one of the fleet-generic roles above; ``path`` is the resolved
+        filesystem path (may be a non-existent reference, which is itself a
+        finding, or ``None`` for inline artifacts like an ``atom=`` string);
+        ``source`` records where the reference originated so consumers can trace
+        provenance.
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
     """
 
     role: str
@@ -190,7 +194,10 @@ class ArtifactNode:
 
 @dataclass
 class ArtifactGraph:
-    """Generic cross-artifact graph built from a parsed PySCF case directory."""
+    """Generic cross-artifact graph built from a parsed PySCF case directory.
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
+    """
 
     case_dir: Path
     nodes: list[ArtifactNode] = field(default_factory=list)
@@ -199,7 +206,10 @@ class ArtifactGraph:
         return [node for node in self.nodes if node.role == role]
 
     def to_json(self) -> list[dict[str, Any]]:
-        """Serialize the graph for the parent probe/report workflow."""
+        """Serialize the graph for the parent probe/report workflow.
+
+        LLM Wiki: wiki/synthesis/openqc-agent-context.md
+        """
 
         def _node_json(node: ArtifactNode) -> dict[str, Any]:
             payload: dict[str, Any] = {
@@ -230,9 +240,11 @@ class ArtifactGraph:
 class MoleSpec:
     """A molecule construction site found in the AST.
 
-    Captures the line where ``gto.M(...)`` or ``gto.Mole(...)`` was called, the
-    declared basis (if any), and any external-file reference in ``atom`` or
-    ``basis`` so the graph builder can resolve them as cross-file artifacts.
+        Captures the line where ``gto.M(...)`` or ``gto.Mole(...)`` was called, the
+        declared basis (if any), and any external-file reference in ``atom`` or
+        ``basis`` so the graph builder can resolve them as cross-file artifacts.
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
     """
 
     line: int
@@ -249,9 +261,11 @@ class MoleSpec:
 class MethodSpec:
     """A method construction site found in the AST.
 
-    ``molecule_var`` is the textual name of the Mole argument if it is a simple
-    ``Name`` node (e.g. ``mf = scf.RHF(mol)`` -> ``"mol"``), so cross-artifact
-    checks can pair methods with their molecule without running the script.
+        ``molecule_var`` is the textual name of the Mole argument if it is a simple
+        ``Name`` node (e.g. ``mf = scf.RHF(mol)`` -> ``"mol"``), so cross-artifact
+        checks can pair methods with their molecule without running the script.
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
     """
 
     line: int
@@ -260,12 +274,16 @@ class MethodSpec:
     kernel_called: bool
 
 
-def _parse_pyscf_script(path: Path) -> tuple[ast.AST | None, list[MoleSpec], list[MethodSpec]]:
+def _parse_pyscf_script(
+    path: Path,
+) -> tuple[ast.AST | None, list[MoleSpec], list[MethodSpec]]:
     """Parse a PySCF script and extract molecule + method construction sites.
 
-    Returns ``(tree, moles, methods)``. When the file has a syntax error the
-    tree is ``None`` and the callers short-circuit (the legacy analyzer already
-    emits ``PYSCF-E090``).
+        Returns ``(tree, moles, methods)``. When the file has a syntax error the
+        tree is ``None`` and the callers short-circuit (the legacy analyzer already
+        emits ``PYSCF-E090``).
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
     """
 
     try:
@@ -347,10 +365,12 @@ def _collect_mole_specs(tree: ast.AST) -> list[MoleSpec]:
 def _extract_file_reference(value: str) -> str | None:
     """Return the path of an external geometry/basis reference, else None.
 
-    PySCF supports ``atom='file:geom.xyz'`` (explicit marker), ``atom='geom.xyz'``
-    (suffix heuristic), and ``basis='file:basis.nwchem'``. Inline atom strings
-    (``atom='H 0 0 0; H 0 0 0.74'``) return ``None`` so the graph records them
-    as inline artifacts instead of cross-file references.
+        PySCF supports ``atom='file:geom.xyz'`` (explicit marker), ``atom='geom.xyz'``
+        (suffix heuristic), and ``basis='file:basis.nwchem'``. Inline atom strings
+        (``atom='H 0 0 0; H 0 0 0.74'``) return ``None`` so the graph records them
+        as inline artifacts instead of cross-file references.
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
     """
 
     text = value.strip()
@@ -412,7 +432,10 @@ def _collect_method_specs(tree: ast.AST) -> list[MethodSpec]:
 
 
 def _collect_max_cycle(tree: ast.AST) -> tuple[int | None, int | None]:
-    """Return (value, line) of any ``mf.max_cycle = N`` assignment."""
+    """Return (value, line) of any ``mf.max_cycle = N`` assignment.
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
+    """
 
     for node in ast.walk(tree):
         if not isinstance(node, ast.Assign):
@@ -433,9 +456,11 @@ def build_artifact_graph(
 ) -> ArtifactGraph:
     """Build the cross-artifact graph from a parsed PySCF script.
 
-    The model is generic: it records roles + resolved paths + provenance. The
-    same shape generalizes to other fleet backends because it never bakes in
-    MatMaster/Bohrium runtime concepts (no input_dir, no image, no session).
+        The model is generic: it records roles + resolved paths + provenance. The
+        same shape generalizes to other fleet backends because it never bakes in
+        MatMaster/Bohrium runtime concepts (no input_dir, no image, no session).
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
     """
 
     case_dir = case_dir.resolve()
@@ -538,9 +563,11 @@ def preflight_diagnostics(
 ) -> tuple[list[dict[str, Any]], ArtifactGraph]:
     """Run universal generated-input preflight checks.
 
-    Returns a tuple of (diagnostics, artifact_graph). Diagnostics are envelope
-    dicts carrying the full ``DiagnosticEnvelope/v1`` field set so the agent
-    CLI can emit them directly without re-shaping.
+        Returns a tuple of (diagnostics, artifact_graph). Diagnostics are envelope
+        dicts carrying the full ``DiagnosticEnvelope/v1`` field set so the agent
+        CLI can emit them directly without re-shaping.
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
     """
 
     case_dir = case_dir.resolve()
@@ -612,7 +639,10 @@ def _per_script_diagnostics(
 
 
 def _cross_file_diagnostics(graph: ArtifactGraph) -> list[dict[str, Any]]:
-    """Cross-file findings that operate purely on the artifact graph."""
+    """Cross-file findings that operate purely on the artifact graph.
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
+    """
 
     out: list[dict[str, Any]] = []
     for role in (ROLE_GEOMETRY, ROLE_BASIS_SET):
@@ -924,9 +954,11 @@ def _duplicate_method_basis_diagnostics(
 def _cross_method_diagnostics(graph: ArtifactGraph) -> list[dict[str, Any]]:
     """Whole-graph checks that span multiple artifacts.
 
-    Today this is a placeholder hook so the cross-artifact-graph capability is
-    evidenced by a dedicated code path rather than only by per-file findings.
-    The fleet manifest lists it as implemented even when it emits nothing.
+        Today this is a placeholder hook so the cross-artifact-graph capability is
+        evidenced by a dedicated code path rather than only by per-file findings.
+        The fleet manifest lists it as implemented even when it emits nothing.
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
     """
 
     # No-op by design: future checks (e.g. post-HF-without-converged-SCF) live
@@ -941,11 +973,13 @@ def _cross_method_diagnostics(graph: ArtifactGraph) -> list[dict[str, Any]]:
 def resolve_version_assumption(intent: dict[str, Any] | None) -> dict[str, Any]:
     """Resolve the explicit runtime/version assumption for this preflight run.
 
-    When the exact runtime/image version is unknown we record that fact
-    explicitly rather than guessing, per the issue's version-assumptions
-    acceptance criterion. The intent contract can override ``software_version``
-    (e.g. ``pyscf >=2.5``); otherwise we fall back to the catalog version the
-    builtin basis/method set was authored against.
+        When the exact runtime/image version is unknown we record that fact
+        explicitly rather than guessing, per the issue's version-assumptions
+        acceptance criterion. The intent contract can override ``software_version``
+        (e.g. ``pyscf >=2.5``); otherwise we fall back to the catalog version the
+        builtin basis/method set was authored against.
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
     """
 
     intent = intent or {}
@@ -972,12 +1006,14 @@ def _version_keyword_diagnostics(
 ) -> list[dict[str, Any]]:
     """Surface version-aware keyword findings on the artifact graph.
 
-    PySCF does not have a static keyword table like ABACUS INPUT, but the
-    basis catalog and method families have versioned availability (e.g.
-    ``def2`` basis sets, ``ddPCM`` solvent). The cross-artifact-graph builder
-    already emits basis-availability findings; this hook exists so the
-    version-aware-keywords capability is evidenced by a stable code path even
-    when no version-specific keyword mismatch is present.
+        PySCF does not have a static keyword table like ABACUS INPUT, but the
+        basis catalog and method families have versioned availability (e.g.
+        ``def2`` basis sets, ``ddPCM`` solvent). The cross-artifact-graph builder
+        already emits basis-availability findings; this hook exists so the
+        version-aware-keywords capability is evidenced by a stable code path even
+        when no version-specific keyword mismatch is present.
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
     """
 
     # Currently a no-op: basis availability is emitted by _basis_availability.
@@ -991,9 +1027,11 @@ def _version_assumption_diagnostic(
 ) -> list[dict[str, Any]]:
     """Emit an explicit information diagnostic when the runtime version is unknown.
 
-    This makes the version assumption machine-readable in the diagnostic stream
-    itself (not just metadata) so the parent probe can surface it without
-    parsing the envelope top-level.
+        This makes the version assumption machine-readable in the diagnostic stream
+        itself (not just metadata) so the parent probe can surface it without
+        parsing the envelope top-level.
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
     """
 
     if version_assumption["exact_runtime_known"]:
@@ -1054,11 +1092,13 @@ def _diag(
 ) -> dict[str, Any]:
     """Build a single normalized preflight diagnostic.
 
-    Carries every field the issue acceptance criteria require (``code``,
-    ``severity``, ``path``/``range``, ``blocking``, ``category``,
-    ``source_provenance``, ``fix_hints``/``actions``) plus the richer envelope
-    fields (``facts``, ``artifact_roles``, ``domain_tags``,
-    ``version_assumption``) used by the parent fleet probe.
+        Carries every field the issue acceptance criteria require (``code``,
+        ``severity``, ``path``/``range``, ``blocking``, ``category``,
+        ``source_provenance``, ``fix_hints``/``actions``) plus the richer envelope
+        fields (``facts``, ``artifact_roles``, ``domain_tags``,
+        ``version_assumption``) used by the parent fleet probe.
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
     """
 
     line0 = max(line - 1, 0)
@@ -1105,10 +1145,12 @@ def fleet_manifest(
 ) -> dict[str, Any]:
     """Return a machine-readable preflight manifest for the parent fleet.
 
-    The parent ``bohrium_skills`` probe/report workflow consumes this to know
-    which preflight codes exist, which capabilities are implemented, and which
-    fixtures exercise them. Keeping it as data (not README prose) means the
-    fleet regression evidence stays in sync with the implementation.
+        The parent ``bohrium_skills`` probe/report workflow consumes this to know
+        which preflight codes exist, which capabilities are implemented, and which
+        fixtures exercise them. Keeping it as data (not README prose) means the
+        fleet regression evidence stays in sync with the implementation.
+
+    LLM Wiki: wiki/synthesis/openqc-agent-context.md
     """
 
     codes = {

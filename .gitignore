@@ -9,5 +9,6 @@ build/
 *.egg-info/
 uv.lock
 .coverage
-reports/
+reports/*
+!reports/docstring-wiki-raw-traceability.json
 .worktrees/

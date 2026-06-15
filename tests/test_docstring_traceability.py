@@ -70,13 +70,28 @@ def test_docstring_traceability_checker_accepts_linked_fixture(tmp_path: Path) -
             encoding="utf-8"
         )
     )
-    assert report["repository"] == "pyscf-lsp"
+    assert report["schemaVersion"] == "openqc.lsp.traceability.v1"
+    assert report["serverId"] == "pyscf-lsp"
+    assert report["repository"] == "newtontech/pyscf-lsp"
+    assert report["languageId"] == "pyscf"
     assert report["summary"]["docstringsTotal"] == 1
     assert report["summary"]["docstringsLinked"] == 1
     assert report["summary"]["wikiSourcesWithoutRaw"] == 0
+    assert report["docstrings"][0]["path"] == "src/example.py"
+    assert report["docstrings"][0]["wikiPath"] == "wiki/rules/mole.md"
+    assert report["docstrings"][0]["symbol"]
+    assert report["wikiSources"][0]["wikiPath"] == "wiki/rules/mole.md"
+    assert report["wikiSources"][0]["rawPath"] == "raw/assets/source.md"
+    assert report["wikiSources"][0]["sourceUrl"]
+    assert report["ruleIds"][0]["sourcePath"] == "raw/assets/source.md"
+    assert report["sourceUrls"][0]["rawPath"] == "raw/assets/source.md"
+    assert report["rawManifest"]["path"] == "raw/assets/manifest.json"
+    assert report["rawManifest"]["ok"] is True
 
 
-def test_docstring_traceability_checker_rejects_unlinked_docstring(tmp_path: Path) -> None:
+def test_docstring_traceability_checker_rejects_unlinked_docstring(
+    tmp_path: Path,
+) -> None:
     repo_root = Path(__file__).resolve().parents[1]
     fixture_root = tmp_path / "unlinked"
     write_traceable_fixture(fixture_root, linked_docstring=False)
