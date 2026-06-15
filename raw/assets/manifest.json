@@ -1,0 +1,105 @@
+{
+  "manifest_version": "1.0.0",
+  "schema_version": "provenance-manifest-v1",
+  "created_at": "2026-06-15T15:59:25+00:00",
+  "repository": "pyscf-lsp",
+  "pipeline": "official-docs -> raw/assets -> wiki -> docstrings -> LSP runtime",
+  "entries": [
+    {
+      "path": "AGENTS.md",
+      "raw_path": "raw/assets/AGENTS.md",
+      "bytes": 1302,
+      "checksum_sha256": "498d47546310ae81010d5462f45dd4977f5e8b5e84c1218c64a15ae956ed7286"
+    },
+    {
+      "path": "DIAGNOSTIC_ENGINE_V1.md",
+      "raw_path": "raw/assets/DIAGNOSTIC_ENGINE_V1.md",
+      "bytes": 1928,
+      "checksum_sha256": "503841eca4c3b60372260c4bcb1c122cad4ac37c0c1c103cd2990debe11f1313"
+    },
+    {
+      "path": "README.md",
+      "raw_path": "raw/assets/README.md",
+      "bytes": 1131,
+      "checksum_sha256": "6fa3224448ebbff3c71536ebe41a2ef2d961fd759b2a2f7708c7811b97437325"
+    },
+    {
+      "path": "docs__DIAGNOSTIC_ENGINE_V1.md",
+      "raw_path": "raw/assets/docs__DIAGNOSTIC_ENGINE_V1.md",
+      "bytes": 1928,
+      "checksum_sha256": "503841eca4c3b60372260c4bcb1c122cad4ac37c0c1c103cd2990debe11f1313"
+    },
+    {
+      "path": "pyproject.toml",
+      "raw_path": "raw/assets/pyproject.toml",
+      "bytes": 1697,
+      "checksum_sha256": "5c5dd989fbcf13fc8f1a94d2a7cfd6f0762d88881325fd3983dc524b0a97743d"
+    },
+    {
+      "path": "pyscf-api-reference.md",
+      "raw_path": "raw/assets/pyscf-api-reference.md",
+      "bytes": 9231,
+      "checksum_sha256": "1587bd95f82fdaa63b0341c0b79fe6453faa8843dfd82059e41bb6a2eca42712"
+    },
+    {
+      "path": "pyscf-dft-guide.md",
+      "raw_path": "raw/assets/pyscf-dft-guide.md",
+      "bytes": 3421,
+      "checksum_sha256": "5ead1dda2562dcd39736f3f27eeb69e6227122812d3fba5ada4d49430775ed99"
+    },
+    {
+      "path": "pyscf-examples.md",
+      "raw_path": "raw/assets/pyscf-examples.md",
+      "bytes": 11729,
+      "checksum_sha256": "6edf0fdd4d814789108f7189f6c1e4855c8cfbf7145ba420e85b1fdb925bc380"
+    },
+    {
+      "path": "pyscf-features.md",
+      "raw_path": "raw/assets/pyscf-features.md",
+      "bytes": 3849,
+      "checksum_sha256": "5d1b6dde695db413035349e5e02381dd37f0d340db375b8591e24e7a0e63d7f6"
+    },
+    {
+      "path": "pyscf-module-reference.md",
+      "raw_path": "raw/assets/pyscf-module-reference.md",
+      "bytes": 4285,
+      "checksum_sha256": "45e0f2cb65fad97f465bdafcf79f1a43865c7bc413248fa6abb8dd804a6d057e"
+    },
+    {
+      "path": "pyscf-readme.md",
+      "raw_path": "raw/assets/pyscf-readme.md",
+      "bytes": 1329,
+      "checksum_sha256": "70f01843d8c672a0e42534bbf42c3bf7f38959b23dc0a71f1b1e3598e0d363fd"
+    },
+    {
+      "path": "pyscf-tutorials.md",
+      "raw_path": "raw/assets/pyscf-tutorials.md",
+      "bytes": 5723,
+      "checksum_sha256": "fd33205a30826ab30b2d9bd034c808e9bff1c750ff0e7788e32541361c94ee11"
+    },
+    {
+      "path": "src__pyscf_lsp__analyzer.py",
+      "raw_path": "raw/assets/src__pyscf_lsp__analyzer.py",
+      "bytes": 19689,
+      "checksum_sha256": "91e08ec8f63a15f7a7fb2bc54639281931796751e30ee3749c27742c082468cf"
+    },
+    {
+      "path": "src__pyscf_lsp__server.py",
+      "raw_path": "raw/assets/src__pyscf_lsp__server.py",
+      "bytes": 24511,
+      "checksum_sha256": "6ccc132b12085fdfb59c45a6628aba16c83f1dbde02918f5178ba1169ac638ea"
+    },
+    {
+      "path": "src_analyzer.py.md",
+      "raw_path": "raw/assets/src_analyzer.py.md",
+      "bytes": 1358,
+      "checksum_sha256": "0581d4fc3b23066b2b9630f9a891d12b4a66295e906f2a9df0c58ca997171924"
+    },
+    {
+      "path": "src_server.py.md",
+      "raw_path": "raw/assets/src_server.py.md",
+      "bytes": 3211,
+      "checksum_sha256": "aac493169c58e6d9ba5c3e6ce3ba1175af5c939a4ff5f858ff30995c66033941"
+    }
+  ]
+}
