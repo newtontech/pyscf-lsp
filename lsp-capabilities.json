@@ -88,5 +88,14 @@
       "label": "PySCF user guide",
       "url": "https://pyscf.org/user/"
     }
-  ]
+  ],
+  "releaseProvenance": {
+    "version": "0.1.0",
+    "versionFile": "VERSION",
+    "changelogFile": "CHANGELOG.md",
+    "releaseTag": null,
+    "releaseCommit": null,
+    "releaseDate": null,
+    "releaseStatus": "pre-release"
+  }
 }
