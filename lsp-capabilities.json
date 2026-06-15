@@ -28,6 +28,7 @@
     "fix-preview",
     "hover",
     "llm-wiki",
+    "log-diagnostics",
     "manifest",
     "openqc-context",
     "rich-diagnostics",
@@ -40,6 +41,7 @@
     "operations": [
       "capabilities",
       "check",
+      "check-log",
       "context",
       "complete",
       "hover",
