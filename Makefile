@@ -1,4 +1,4 @@
-.PHONY: install format lint typecheck test check cleanup-merged
+.PHONY: install format lint typecheck test traceability check cleanup-merged
 
 install:
 	bash scripts/install.sh
@@ -15,7 +15,10 @@ typecheck:
 test:
 	bash scripts/test.sh
 
-check: lint typecheck test
+traceability:
+	python3 scripts/check_docstring_traceability.py --write-report
+
+check: lint typecheck test traceability
 
 cleanup-merged:
 	bash scripts/cleanup_merged_worktrees.sh

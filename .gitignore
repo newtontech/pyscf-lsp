@@ -9,4 +9,5 @@ build/
 *.egg-info/
 uv.lock
 .coverage
+reports/
 .worktrees/

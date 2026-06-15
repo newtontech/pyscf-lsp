@@ -89,6 +89,13 @@
       "url": "https://pyscf.org/user/"
     }
   ],
+  "traceability": {
+    "schema": "docstring-wiki-raw-traceability-v1",
+    "checker": "scripts/check_docstring_traceability.py",
+    "report": "reports/docstring-wiki-raw-traceability.json",
+    "mode": "report-only",
+    "issue": "https://github.com/newtontech/pyscf-lsp/issues/52"
+  },
   "releaseProvenance": {
     "version": "0.1.0",
     "versionFile": "VERSION",
