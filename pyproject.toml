@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "pyscf-lsp"
-version = "0.1.0"
+version = "0.1.1rc1"
 description = "Language Server Protocol and CLI tools for PySCF workflow scripts"
 readme = "README.md"
 license = { text = "MIT" }
@@ -47,6 +47,10 @@ pyscf-lint = "pyscf_lsp.cli:lint_main"
 pyscf-fmt = "pyscf_lsp.cli:fmt_main"
 pyscf-test = "pyscf_lsp.cli:test_main"
 pyscf-lsp-tool = "pyscf_lsp.tool:main"
+
+
+[tool.hatch.build.force-include]
+"skill" = "skill"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/pyscf_lsp"]
