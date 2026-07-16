@@ -11,6 +11,18 @@ has_npm_script() {
   node -e "const p=require('./package.json'); process.exit(p.scripts && p.scripts[process.argv[1]] ? 0 : 1)" "$script"
 }
 
+python_format_targets() {
+  local targets=""
+  [ -d src ] && targets="$targets src"
+  [ -d tests ] && targets="$targets tests"
+  [ -f scripts/verify_release.py ] && targets="$targets scripts/verify_release.py"
+  if [ -z "${targets# }" ]; then
+    echo "."
+  else
+    echo "$targets"
+  fi
+}
+
 if has_npm_script format:write; then
   npm run format:write
   ran=1
@@ -26,11 +38,11 @@ fi
 
 if [ -f pyproject.toml ] || [ -f setup.py ]; then
   py_targets="$(python_format_targets)"
-  if "$PYTHON_BIN" -m black --version >/dev/null 2>&1; then
-    "$PYTHON_BIN" -m black $py_targets
-    ran=1
-  elif "$PYTHON_BIN" -m ruff --version >/dev/null 2>&1; then
+  if "$PYTHON_BIN" -m ruff --version >/dev/null 2>&1; then
     "$PYTHON_BIN" -m ruff format $py_targets
+    ran=1
+  elif "$PYTHON_BIN" -m black --version >/dev/null 2>&1; then
+    "$PYTHON_BIN" -m black $py_targets
     ran=1
   fi
 fi

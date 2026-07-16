@@ -16,6 +16,7 @@ python_lint_targets() {
   [ -d src ] && targets="$targets src"
   [ -d tests ] && targets="$targets tests"
   [ -d test ] && targets="$targets test"
+  [ -f scripts/verify_release.py ] && targets="$targets scripts/verify_release.py"
   for d in *_lsp cp2k_input_tools mdparser gromacs_lsp; do
     [ -d "$d" ] && targets="$targets $d"
   done

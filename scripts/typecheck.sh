@@ -14,6 +14,7 @@ has_npm_script() {
 python_typecheck_targets() {
   local targets=""
   [ -d src ] && targets="$targets src"
+  [ -f scripts/verify_release.py ] && targets="$targets scripts/verify_release.py"
   for d in *_lsp cp2k_input_tools mdparser gromacs_lsp; do
     [ -d "$d" ] && targets="$targets $d"
   done

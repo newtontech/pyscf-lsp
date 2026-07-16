@@ -594,7 +594,7 @@ class PySCFLanguageServer(LanguageServer):
 # ---------------------------------------------------------------------------
 
 
-def create_server(name: str = "pyscf-lsp", version: str = "0.1.0") -> PySCFLanguageServer:
+def create_server(name: str = "pyscf-lsp", version: str = "0.1.1") -> PySCFLanguageServer:
     """Create and return a configured PySCFLanguageServer.
 
     LLM Wiki: wiki/synthesis/openqc-agent-context.md
