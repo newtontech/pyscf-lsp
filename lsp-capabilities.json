@@ -6,6 +6,7 @@
   "displayName": "PySCF",
   "languageId": "pyscf",
   "executable": "pyscf-lsp",
+  "repository": "newtontech/pyscf-lsp",
   "defaultBranch": "main",
   "filePatterns": [
     "*.pyscf.py",
@@ -97,12 +98,12 @@
     "issue": "https://github.com/newtontech/pyscf-lsp/issues/52"
   },
   "releaseProvenance": {
-    "version": "0.1.0",
+    "version": "0.1.1",
     "versionFile": "VERSION",
     "changelogFile": "CHANGELOG.md",
-    "releaseTag": null,
+    "releaseTag": "v0.1.1",
     "releaseCommit": null,
-    "releaseDate": null,
-    "releaseStatus": "pre-release"
+    "releaseDate": "2026-07-16",
+    "releaseStatus": "ready"
   }
 }

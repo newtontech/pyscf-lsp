@@ -2,11 +2,11 @@
   "schemaVersion": "openqc.lsp.traceability.v1",
   "serverId": "pyscf-lsp",
   "languageId": "pyscf",
-  "generatedAt": "2026-06-15T19:27:06+00:00",
+  "generatedAt": "2026-07-16T10:05:03+00:00",
   "repository": "newtontech/pyscf-lsp",
   "summary": {
-    "docstringsTotal": 69,
-    "docstringsLinked": 69,
+    "docstringsTotal": 70,
+    "docstringsLinked": 70,
     "brokenWikiLinks": 0,
     "wikiPagesTotal": 13,
     "wikiPagesWithRaw": 13,
@@ -19,6 +19,19 @@
       "wikiPath": "wiki/synthesis/openqc-agent-context.md",
       "symbol": "python-docstring:scripts/check_docstring_traceability.py:2",
       "file": "scripts/check_docstring_traceability.py",
+      "line": 2,
+      "kind": "python-docstring",
+      "linked": true,
+      "wikiRefs": [
+        "wiki/synthesis/openqc-agent-context.md"
+      ],
+      "brokenWikiRefs": []
+    },
+    {
+      "path": "scripts/verify_release.py",
+      "wikiPath": "wiki/synthesis/openqc-agent-context.md",
+      "symbol": "python-docstring:scripts/verify_release.py:2",
+      "file": "scripts/verify_release.py",
       "line": 2,
       "kind": "python-docstring",
       "linked": true,
